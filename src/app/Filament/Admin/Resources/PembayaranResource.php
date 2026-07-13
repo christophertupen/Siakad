@@ -4,13 +4,18 @@ namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\PembayaranResource\Pages;
 use App\Models\Pembayaran;
+use App\Services\MidtransService;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\DB;
+use RuntimeException;
+use Throwable;
 
 class PembayaranResource extends Resource
 {
@@ -188,7 +193,6 @@ public static function getNavigationBadge(): ?string
                             'Gagal'=>'Gagal',
                         ])
                         ->default('Pending')
-                        ->disabled()
                         ->dehydrated(),
 
                 ])
@@ -312,6 +316,58 @@ public static function getNavigationBadge(): ?string
         ])
 
         ->actions([
+
+            Tables\Actions\Action::make('generateMidtrans')
+                ->label('Generate Midtrans')
+                ->icon('heroicon-m-bolt')
+                ->color('primary')
+                ->requiresConfirmation()
+                ->disabled(fn (Pembayaran $record): bool => $record->status !== 'Pending'
+                    || filled($record->midtrans_token)
+                    || blank(config('midtrans.server_key'))
+                    || blank(config('midtrans.client_key')))
+                ->tooltip(fn (): ?string => blank(config('midtrans.server_key')) || blank(config('midtrans.client_key'))
+                    ? 'Isi MIDTRANS_SERVER_KEY dan MIDTRANS_CLIENT_KEY di .env'
+                    : null)
+                ->action(function (Pembayaran $record, MidtransService $midtransService): void {
+                    try {
+                        DB::transaction(function () use ($record, $midtransService): void {
+                            $pembayaran = Pembayaran::query()
+                                ->whereKey($record->getKey())
+                                ->lockForUpdate()
+                                ->firstOrFail();
+
+                            if ($pembayaran->status !== 'Pending') {
+                                throw new RuntimeException('Midtrans hanya dapat dibuat untuk pembayaran Pending.');
+                            }
+
+                            if (filled($pembayaran->midtrans_token)) {
+                                throw new RuntimeException('Snap Token sudah pernah dibuat.');
+                            }
+
+                            $transaction = $midtransService->createSnapTransaction($pembayaran);
+
+                            $pembayaran->update([
+                                'midtrans_order_id' => $transaction['order_id'],
+                                'midtrans_token' => $transaction['snap_token'],
+                                'status' => 'Pending',
+                            ]);
+                        });
+
+                        Notification::make()
+                            ->title('Snap Token berhasil dibuat')
+                            ->success()
+                            ->send();
+                    } catch (Throwable $exception) {
+                        report($exception);
+
+                        Notification::make()
+                            ->title('Gagal generate Midtrans')
+                            ->body($exception->getMessage())
+                            ->danger()
+                            ->send();
+                    }
+                }),
 
             Tables\Actions\ViewAction::make(),
 

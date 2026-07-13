@@ -21,3 +21,5 @@ Livewire::setScriptRoute(function ($handle) {
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::redirect('/login', '/admin/login')->name('login');

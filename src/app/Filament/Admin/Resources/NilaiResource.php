@@ -66,18 +66,24 @@ class NilaiResource extends Resource
 
                         Forms\Components\TextInput::make('nilai_tugas')
                             ->numeric()
+                            ->minvalue(0)
+                            ->maxvalue(100)
                             ->required()
                             ->live()
                             ->afterStateUpdated(fn(Get $get, Set $set) => self::hitungNilai($get, $set)),
 
                         Forms\Components\TextInput::make('nilai_uts')
                             ->numeric()
+                            ->minvalue(0)
+                            ->maxvalue(100)
                             ->required()
                             ->live()
                             ->afterStateUpdated(fn(Get $get, Set $set) => self::hitungNilai($get, $set)),
 
                         Forms\Components\TextInput::make('nilai_uas')
                             ->numeric()
+                            ->minvalue(0)
+                            ->maxvalue(100)
                             ->required()
                             ->live()
                             ->afterStateUpdated(fn(Get $get, Set $set) => self::hitungNilai($get, $set)),
@@ -112,13 +118,13 @@ class NilaiResource extends Resource
 
     protected static function hitungNilai(Get $get, Set $set): void
     {
-        $tugas = (float) $get('nilai_tugas');
-        $uts = (float) $get('nilai_uts');
-        $uas = (float) $get('nilai_uas');
+        $tugas = (float) $get('nilai_tugas' ?? 0);
+        $uts = (float) $get('nilai_uts' ?? 0);
+        $uas = (float) $get('nilai_uas' ?? 0);
 
         if ($tugas || $uts || $uas) {
 
-            $akhir = round(($tugas + $uts + $uas) / 3, 2);
+            $akhir = round(($tugas + $uts + $uas) / 3);
 
             $set('nilai_akhir', $akhir);
 
