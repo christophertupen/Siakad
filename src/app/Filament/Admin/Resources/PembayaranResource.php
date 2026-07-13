@@ -234,6 +234,7 @@ public static function getNavigationBadge(): ?string
                     Forms\Components\Textarea::make('catatan')
                         ->rows(3)
                         ->columnSpanFull(),
+                    
 
                 ])
                 ->columns(2),
@@ -331,28 +332,25 @@ public static function getNavigationBadge(): ?string
                     : null)
                 ->action(function (Pembayaran $record, MidtransService $midtransService): void {
                     try {
-                        DB::transaction(function () use ($record, $midtransService): void {
-                            $pembayaran = Pembayaran::query()
-                                ->whereKey($record->getKey())
-                                ->lockForUpdate()
-                                ->firstOrFail();
+                        $pembayaran = Pembayaran::query()
+                            ->whereKey($record->getKey())
+                            ->firstOrFail();
 
-                            if ($pembayaran->status !== 'Pending') {
-                                throw new RuntimeException('Midtrans hanya dapat dibuat untuk pembayaran Pending.');
-                            }
+                        if ($pembayaran->status !== 'Pending') {
+                            throw new RuntimeException('Midtrans hanya dapat dibuat untuk pembayaran Pending.');
+                        }
 
-                            if (filled($pembayaran->midtrans_token)) {
-                                throw new RuntimeException('Snap Token sudah pernah dibuat.');
-                            }
+                        if (filled($pembayaran->midtrans_token)) {
+                            throw new RuntimeException('Snap Token sudah pernah dibuat.');
+                        }
 
-                            $transaction = $midtransService->createSnapTransaction($pembayaran);
+                        $transaction = $midtransService->createSnapTransaction($pembayaran);
 
-                            $pembayaran->update([
-                                'midtrans_order_id' => $transaction['order_id'],
-                                'midtrans_token' => $transaction['snap_token'],
-                                'status' => 'Pending',
-                            ]);
-                        });
+                        $pembayaran->update([
+                            'midtrans_order_id' => $transaction['order_id'],
+                            'midtrans_token' => $transaction['snap_token'],
+                            'status' => 'Pending',
+                        ]);
 
                         Notification::make()
                             ->title('Snap Token berhasil dibuat')
@@ -368,6 +366,14 @@ public static function getNavigationBadge(): ?string
                             ->send();
                     }
                 }),
+
+            Tables\Actions\Action::make('pay')
+                ->label('Bayar')
+                ->icon('heroicon-o-credit-card')
+                ->color('success')
+                ->visible(fn (Pembayaran $record) => filled($record->midtrans_token))
+                ->url(fn (Pembayaran $record) => route('midtrans.pay', $record))
+                ->openUrlInNewTab(),
 
             Tables\Actions\ViewAction::make(),
 
@@ -386,6 +392,8 @@ public static function getNavigationBadge(): ?string
             ]),
 
         ])
+
+        
 
         ->defaultSort('created_at', 'desc');
 }

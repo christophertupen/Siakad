@@ -10,7 +10,6 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -25,19 +24,40 @@ class GuruPanelProvider extends PanelProvider
         return $panel
             ->id('guru')
             ->path('guru')
+
+            // Authentication
+            ->login()
+            ->passwordReset()
+
+            // Appearance
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->discoverResources(in: app_path('Filament/Guru/Resources'), for: 'App\\Filament\\Guru\\Resources')
-            ->discoverPages(in: app_path('Filament/Guru/Pages'), for: 'App\\Filament\\Guru\\Pages')
+
+            // Auto Discovery
+            ->discoverResources(
+                in: app_path('Filament/Guru/Resources'),
+                for: 'App\\Filament\\Guru\\Resources'
+            )
+
+            ->discoverPages(
+                in: app_path('Filament/Guru/Pages'),
+                for: 'App\\Filament\\Guru\\Pages'
+            )
+
+            ->discoverWidgets(
+                in: app_path('Filament/Guru/Widgets'),
+                for: 'App\\Filament\\Guru\\Widgets'
+            )
+
+            // Dashboard
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Guru/Widgets'), for: 'App\\Filament\\Guru\\Widgets')
-            ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
-            ])
+
+            ->widgets([])
+
+            // Middleware
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -49,6 +69,7 @@ class GuruPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+
             ->authMiddleware([
                 Authenticate::class,
             ]);
