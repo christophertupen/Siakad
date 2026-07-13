@@ -46,6 +46,12 @@ class OrangTuaResource extends Resource
                                 modifyQueryUsing: fn (Builder $query) => $query->where('role', 'orang_tua')
                             )
                             ->searchable()
+                            ->preload(),
+
+                        Forms\Components\Select::make('siswa_id')
+                            ->label('Siswa')
+                            ->relationship('siswa', 'nama')
+                            ->searchable()
                             ->preload()
                             ->required(),
 
@@ -99,6 +105,11 @@ class OrangTuaResource extends Resource
 
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Akun')
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('siswa.nama')
+                    ->label('Siswa')
                     ->searchable()
                     ->sortable(),
 

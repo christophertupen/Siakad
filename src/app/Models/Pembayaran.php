@@ -10,9 +10,7 @@ class Pembayaran extends Model
     use HasFactory;
 
     protected $fillable = [
-        'orang_tua_id',
         'siswa_id',
-        'kelas_id',
         'tahun_ajaran',
         'kategori',
         'bulan',
@@ -45,19 +43,9 @@ class Pembayaran extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function orangTua()
-    {
-        return $this->belongsTo(OrangTua::class, 'orang_tua_id');
-    }
-
     public function siswa()
     {
-        return $this->belongsTo(User::class, 'siswa_id');
-    }
-
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class, 'kelas_id');
+        return $this->belongsTo(Siswa::class, 'siswa_id');
     }
 
     /*

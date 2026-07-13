@@ -13,7 +13,6 @@ class Nilai extends Model
         'siswa_id',
         'guru_id',
         'mata_pelajaran_id',
-        'kelas_id', 
         'nilai_tugas',
         'nilai_uts',
         'nilai_uas',
@@ -26,7 +25,7 @@ class Nilai extends Model
 
     public function siswa()
     {
-        return $this->belongsTo(User::class, 'siswa_id');
+        return $this->belongsTo(Siswa::class, 'siswa_id');
     }
 
     public function mataPelajaran()
@@ -39,8 +38,4 @@ class Nilai extends Model
         return $this->belongsTo(Guru::class);
     }
 
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class);
-    }
 }

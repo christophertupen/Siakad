@@ -4,7 +4,6 @@ namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\KelasSiswaResource\Pages;
 use App\Models\KelasSiswa;
-use App\Models\OrangTua;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -23,7 +22,7 @@ class KelasSiswaResource extends Resource
 
     protected static ?int $navigationSort = 4;
 
-    protected static ?string $recordTitleAttribute = 'nama_siswa';
+    protected static ?string $recordTitleAttribute = 'siswa.nama';
 
     public static function getNavigationBadge(): ?string
     {
@@ -38,13 +37,11 @@ class KelasSiswaResource extends Resource
                 Forms\Components\Section::make('Data Siswa')
                     ->schema([
 
-                        Forms\Components\TextInput::make('nama_siswa')
-                            ->required()
-                            ->maxLength(255),
-
-                        Forms\Components\TextInput::make('nis')
-                            ->required()
-                            ->unique(ignoreRecord: true),
+                        Forms\Components\Select::make('siswa_id')
+                            ->relationship('siswa', 'nama')
+                            ->searchable()
+                            ->preload()
+                            ->required(),
 
                         Forms\Components\Select::make('kelas_id')
                             ->relationship('kelas', 'nama_kelas')
@@ -72,43 +69,6 @@ class KelasSiswaResource extends Resource
                     ])
                     ->columns(2),
 
-                Forms\Components\Section::make('Data Orang Tua / Wali')
-                    ->visibleOn('create')
-                    ->schema([
-
-                        Forms\Components\TextInput::make('nama_orang_tua')
-                            ->label('Nama Orang Tua / Wali')
-                            ->required()
-                            ->maxLength(255),
-
-                        Forms\Components\TextInput::make('nik')
-                            ->label('NIK Orang Tua / Wali')
-                            ->required()
-                            ->unique(table: OrangTua::class, column: 'nik')
-                            ->maxLength(20),
-
-                        Forms\Components\Select::make('hubungan')
-                            ->options([
-                                'Ayah' => 'Ayah',
-                                'Ibu' => 'Ibu',
-                                'Wali' => 'Wali',
-                            ])
-                            ->required(),
-
-                        Forms\Components\TextInput::make('nomor_telepon')
-                            ->tel()
-                            ->required(),
-
-                        Forms\Components\TextInput::make('pekerjaan')
-                            ->maxLength(255),
-
-                        Forms\Components\Textarea::make('alamat')
-                            ->rows(3)
-                            ->columnSpanFull(),
-
-                    ])
-                    ->columns(2),
-
             ]);
     }
 
@@ -117,20 +77,16 @@ class KelasSiswaResource extends Resource
         return $table
             ->columns([
 
-                Tables\Columns\TextColumn::make('nama_siswa')
+                Tables\Columns\TextColumn::make('siswa.nama')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('nis')
+                Tables\Columns\TextColumn::make('siswa.nis')
                     ->searchable()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('kelas.nama_kelas')
                     ->label('Kelas'),
-
-                Tables\Columns\TextColumn::make('orangTua.nama')
-                    ->label('Orang Tua')
-                    ->placeholder('-'),
 
                 Tables\Columns\TextColumn::make('no_absen'),
 

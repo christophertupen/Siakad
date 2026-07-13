@@ -16,9 +16,8 @@ return new class extends Migration
             $table->id();
 
             // Relasi ke akun user
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->cascadeOnDelete();
+            $table->foreignId('siswa_id')->constrained('siswas')->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
 
             // Data Orang Tua
             $table->string('nik')->unique();

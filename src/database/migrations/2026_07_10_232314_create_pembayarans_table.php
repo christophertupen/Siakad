@@ -21,19 +21,9 @@ return new class extends Migration
             |--------------------------------------------------------------------------
             */
 
-            // Orang Tua
-            $table->foreignId('orang_tua_id')
-                ->constrained('orang_tuas')
-                ->cascadeOnDelete();
-
             // Siswa
             $table->foreignId('siswa_id')
-                ->constrained('users')
-                ->cascadeOnDelete();
-
-            // Kelas
-            $table->foreignId('kelas_id')
-                ->constrained('kelas')
+                ->constrained('siswas')
                 ->cascadeOnDelete();
 
             /*

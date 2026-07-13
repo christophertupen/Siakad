@@ -15,20 +15,12 @@ return new class extends Migration
 
             $table->id();
 
-            // Data Siswa
-            $table->string('nama_siswa');
-            $table->string('nis')->unique();
+            $table->foreignId('siswa_id')->constrained('siswas')->cascadeOnDelete();
 
             // Kelas
             $table->foreignId('kelas_id')
                 ->constrained('kelas')
                 ->cascadeOnDelete();
-
-            // Orang Tua (Opsional)
-            $table->foreignId('orang_tua_id')
-                ->nullable()
-                ->constrained('orang_tuas')
-                ->nullOnDelete();
 
             // Akademik
             $table->string('no_absen')->nullable();
@@ -41,6 +33,8 @@ return new class extends Migration
             ]);
 
             $table->boolean('status')->default(true);
+
+            $table->unique(['siswa_id', 'kelas_id', 'tahun_ajaran', 'semester']);
 
             $table->timestamps();
         });

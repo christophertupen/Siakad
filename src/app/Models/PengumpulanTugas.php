@@ -13,11 +13,11 @@ class PengumpulanTugas extends Model
 
     protected $fillable = [
         'tugas_id',
-        'kelas_siswa_id',
+        'siswa_id',
         'file_jawaban',
         'catatan',
         'tanggal_pengumpulan',
-        'status',
+        'nilai',
     ];
 
     protected $casts = [
@@ -31,6 +31,6 @@ class PengumpulanTugas extends Model
 
     public function siswa()
     {
-        return $this->belongsTo(User::class, 'siswa_id');
+        return $this->belongsTo(Siswa::class, 'siswa_id');
     }
 }

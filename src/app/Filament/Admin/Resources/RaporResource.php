@@ -12,7 +12,6 @@ use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class RaporResource extends Resource
 {
@@ -26,7 +25,7 @@ class RaporResource extends Resource
 
     protected static ?int $navigationSort = 7;
 
-    protected static ?string $recordTitleAttribute = 'siswa.name';
+    protected static ?string $recordTitleAttribute = 'siswa.nama';
 
     public static function form(Form $form): Form
     {
@@ -38,12 +37,7 @@ class RaporResource extends Resource
 
                         Forms\Components\Select::make('siswa_id')
                             ->label('Siswa')
-                            ->relationship(
-                                'siswa',
-                                'name',
-                                modifyQueryUsing: fn (Builder $query) =>
-                                    $query->where('role', 'siswa')
-                            )
+                            ->relationship('siswa', 'nama')
                             ->searchable()
                             ->preload()
                             ->live()
@@ -54,12 +48,6 @@ class RaporResource extends Resource
                             ->label('Wali Kelas')
                             ->relationship('guru', 'nip')
                             ->getOptionLabelFromRecordUsing(fn ($record) => $record->user->name)
-                            ->searchable()
-                            ->preload()
-                            ->required(),
-
-                        Forms\Components\Select::make('kelas_id')
-                            ->relationship('kelas', 'nama_kelas')
                             ->searchable()
                             ->preload()
                             ->required(),
@@ -154,14 +142,10 @@ class RaporResource extends Resource
         return $table
             ->columns([
 
-                Tables\Columns\TextColumn::make('siswa.name')
+                Tables\Columns\TextColumn::make('siswa.nama')
                     ->label('Siswa')
                     ->searchable()
                     ->sortable(),
-
-                Tables\Columns\TextColumn::make('kelas.nama_kelas')
-                    ->label('Kelas')
-                    ->badge(),
 
                 Tables\Columns\TextColumn::make('guru.user.name')
                     ->label('Wali Kelas'),
@@ -197,9 +181,6 @@ class RaporResource extends Resource
 
             ])
             ->filters([
-
-                Tables\Filters\SelectFilter::make('kelas')
-                    ->relationship('kelas', 'nama_kelas'),
 
                 Tables\Filters\SelectFilter::make('semester')
                     ->options([

@@ -11,7 +11,6 @@ use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class PembayaranResource extends Resource
 {
@@ -45,28 +44,9 @@ public static function getNavigationBadge(): ?string
             Forms\Components\Section::make('Data Pembayaran')
                 ->schema([
 
-                    Forms\Components\Select::make('orang_tua_id')
-                        ->label('Orang Tua')
-                        ->relationship('orangTua', 'nama')
-                        ->searchable()
-                        ->preload()
-                        ->required(),
-
                     Forms\Components\Select::make('siswa_id')
                         ->label('Siswa')
-                        ->relationship(
-                            name: 'siswa',
-                            titleAttribute: 'name',
-                            modifyQueryUsing: fn (Builder $query)
-                                => $query->where('role', 'siswa')
-                        )
-                        ->searchable()
-                        ->preload()
-                        ->required(),
-
-                    Forms\Components\Select::make('kelas_id')
-                        ->label('Kelas')
-                        ->relationship('kelas', 'nama_kelas')
+                        ->relationship('siswa', 'nama')
                         ->searchable()
                         ->preload()
                         ->required(),
@@ -262,18 +242,9 @@ public static function getNavigationBadge(): ?string
     return $table
         ->columns([
 
-            Tables\Columns\TextColumn::make('siswa.name')
+            Tables\Columns\TextColumn::make('siswa.nama')
                 ->label('Siswa')
                 ->searchable()
-                ->sortable(),
-
-            Tables\Columns\TextColumn::make('orangTua.nama')
-                ->label('Orang Tua')
-                ->searchable(),
-
-            Tables\Columns\TextColumn::make('kelas.nama_kelas')
-                ->label('Kelas')
-                ->badge()
                 ->sortable(),
 
             Tables\Columns\BadgeColumn::make('kategori')
@@ -337,9 +308,6 @@ public static function getNavigationBadge(): ?string
                     'Lunas' => 'Lunas',
                     'Gagal' => 'Gagal',
                 ]),
-
-            Tables\Filters\SelectFilter::make('kelas')
-                ->relationship('kelas', 'nama_kelas'),
 
         ])
 

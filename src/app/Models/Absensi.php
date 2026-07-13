@@ -31,7 +31,7 @@ class Absensi extends Model
     // Siswa
     public function siswa()
     {
-        return $this->belongsTo(User::class, 'siswa_id');
+        return $this->belongsTo(Siswa::class, 'siswa_id');
     }
 
     // Jadwal Pelajaran

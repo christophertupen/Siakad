@@ -10,6 +10,7 @@ class Tugas extends Model
     use HasFactory;
 
     protected $fillable = [
+        'guru_id',
         'mata_pelajaran_id',
         'kelas_id',
         'judul',
@@ -28,6 +29,11 @@ class Tugas extends Model
     public function pengumpulanTugas()
     {
         return $this->hasMany(PengumpulanTugas::class);
+    }
+
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'guru_id');
     }
 
     public function mataPelajaran()

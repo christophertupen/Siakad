@@ -13,7 +13,7 @@ return new class extends Migration
 
             // Siswa
             $table->foreignId('siswa_id')
-                ->constrained('users')
+                ->constrained('siswas')
                 ->cascadeOnDelete();
 
             // Jadwal Pelajaran

@@ -13,10 +13,9 @@
         {
             Schema::create('nilais', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('siswa_id')->constrained('users')->cascadeOnDelete();
-                $table->foreignId("guru_id")->constrained('gurus')->cascadeOnDelete();
-                $table->foreignId("mata_pelajaran_id")->constrained('mata_pelajarans')->cascadeOnDelete();
-                $table->foreignId("kelas_id")->constrained('kelas')->cascadeOnDelete();
+                $table->foreignId('siswa_id')->constrained('siswas')->cascadeOnDelete();
+                $table->foreignId('guru_id')->constrained('gurus')->cascadeOnDelete();
+                $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajarans')->cascadeOnDelete();
                 $table->decimal("nilai_tugas", 5, 2);
                 $table->decimal("nilai_uts", 5, 2);
                 $table->decimal("nilai_uas", 5, 2);
@@ -24,9 +23,9 @@
                 $table->string('predikat')->nullable();
                 $table->text('catatan')->nullable();   
                 $table->string('tahun_ajaran');
-                $table->enum("semester",[
-                    "ganjil",
-                    "genap",
+                $table->enum('semester', [
+                    'Ganjil',
+                    'Genap',
                 ]);
                 
                 $table->timestamps();

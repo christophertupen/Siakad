@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('tugas', function (Blueprint $table) {
             $table->id();
-            $table->foreignID("mata_pelajaran_id")->constrained("mata_pelajarans")->cascadeOnDelete();
-            $table->foreignId('kelas_id')->constrained('kelas')->cascadeOnDelete(); 
+            $table->foreignId('guru_id')->constrained('gurus')->cascadeOnDelete();
+            $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajarans')->cascadeOnDelete();
+            $table->foreignId('kelas_id')->constrained('kelas')->cascadeOnDelete();
             $table->string("judul");
             $table->text("deskripsi")->nullable();
             $table->string("file_tugas")->nullable();

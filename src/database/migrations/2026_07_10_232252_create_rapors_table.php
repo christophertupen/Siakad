@@ -16,17 +16,12 @@ return new class extends Migration
 
             // Siswa
             $table->foreignId('siswa_id')
-                ->constrained('users')
+                ->constrained('siswas')
                 ->cascadeOnDelete();
 
             // Wali Kelas
             $table->foreignId('guru_id')
                 ->constrained('gurus')
-                ->cascadeOnDelete();
-
-            // Kelas
-            $table->foreignId('kelas_id')
-                ->constrained('kelas')
                 ->cascadeOnDelete();
 
             // Tahun Ajaran

@@ -11,7 +11,6 @@ use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class NilaiResource extends Resource
 {
@@ -25,7 +24,7 @@ class NilaiResource extends Resource
 
     protected static ?int $navigationSort = 6;
 
-    protected static ?string $recordTitleAttribute = 'siswa.name';
+    protected static ?string $recordTitleAttribute = 'siswa.nama';
 
     public static function getNavigationBadge(): ?string
     {
@@ -42,11 +41,7 @@ class NilaiResource extends Resource
 
                         Forms\Components\Select::make('siswa_id')
                             ->label('Siswa')
-                            ->relationship(
-                                'siswa',
-                                'name',
-                                modifyQueryUsing: fn (Builder $query) => $query->where('role', 'siswa')
-                            )
+                            ->relationship('siswa', 'nama')
                             ->searchable()
                             ->preload()
                             ->required(),
@@ -64,15 +59,6 @@ class NilaiResource extends Resource
                             ->relationship(
                                 'mataPelajaran',
                                 'nama_mata_pelajaran'
-                            )
-                            ->searchable()
-                            ->preload()
-                            ->required(),
-
-                        Forms\Components\Select::make('kelas_id')
-                            ->relationship(
-                                'kelas',
-                                'nama_kelas'
                             )
                             ->searchable()
                             ->preload()
@@ -153,7 +139,7 @@ class NilaiResource extends Resource
         return $table
             ->columns([
 
-                Tables\Columns\TextColumn::make('siswa.name')
+                Tables\Columns\TextColumn::make('siswa.nama')
                     ->label('Nama Siswa')
                     ->searchable()
                     ->sortable(),
@@ -168,10 +154,6 @@ class NilaiResource extends Resource
                 Tables\Columns\TextColumn::make('mataPelajaran.nama_mata_pelajaran')
                     ->label('Mata Pelajaran')
                     ->searchable(),
-
-                Tables\Columns\TextColumn::make('kelas.nama_kelas')
-                    ->label('Kelas')
-                    ->badge(),
 
                 Tables\Columns\TextColumn::make('nilai_tugas'),
 
@@ -204,9 +186,6 @@ class NilaiResource extends Resource
 
             ])
             ->filters([
-
-                Tables\Filters\SelectFilter::make('kelas_id')
-                    ->relationship('kelas', 'nama_kelas'),
 
                 Tables\Filters\SelectFilter::make('semester')
                     ->options([

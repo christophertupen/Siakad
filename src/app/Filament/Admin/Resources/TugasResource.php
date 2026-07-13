@@ -38,6 +38,12 @@ class TugasResource extends Resource
                 Forms\Components\Section::make('Data Tugas')
                     ->schema([
 
+                        Forms\Components\Select::make('guru_id')
+                            ->relationship('guru', 'nama')
+                            ->searchable()
+                            ->preload()
+                            ->required(),
+
                         Forms\Components\Select::make('mata_pelajaran_id')
                             ->label('Mata Pelajaran')
                             ->relationship('mataPelajaran', 'nama_mata_pelajaran')
@@ -104,6 +110,10 @@ class TugasResource extends Resource
                 Tables\Columns\TextColumn::make('mataPelajaran.nama_mata_pelajaran')
                     ->label('Mata Pelajaran')
                     ->badge()
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('guru.nama')
+                    ->label('Guru')
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('kelas.nama_kelas')

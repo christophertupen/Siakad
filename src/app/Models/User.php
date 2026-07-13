@@ -72,34 +72,9 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasOne(OrangTua::class, 'user_id');
     }
 
-    public function kelasSiswa()
+    public function siswa()
     {
-        return $this->hasOne(KelasSiswa::class);
-    }
-
-    public function pengumpulanTugas()
-    {
-        return $this->hasMany(PengumpulanTugas::class, 'siswa_id');
-    }
-
-    public function nilai()
-    {
-        return $this->hasMany(Nilai::class, 'siswa_id');
-    }
-
-    public function rapors()
-    {
-        return $this->hasMany(Rapor::class, 'siswa_id');
-    }
-
-    public function absensis()
-    {
-        return $this->hasMany(Absensi::class, 'siswa_id');
-    }
-
-    public function pembayarans()
-    {
-        return $this->hasMany(Pembayaran::class, 'siswa_id');
+        return $this->hasOne(Siswa::class);
     }
 
 }

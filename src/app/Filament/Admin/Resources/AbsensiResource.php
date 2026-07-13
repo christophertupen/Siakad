@@ -9,7 +9,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class AbsensiResource extends Resource
 {
@@ -23,7 +22,7 @@ class AbsensiResource extends Resource
 
     protected static ?int $navigationSort = 8;
 
-    protected static ?string $recordTitleAttribute = 'siswa.name';
+    protected static ?string $recordTitleAttribute = 'siswa.nama';
 
     public static function getNavigationBadge(): ?string
     {
@@ -40,12 +39,7 @@ class AbsensiResource extends Resource
 
                         Forms\Components\Select::make('siswa_id')
                             ->label('Siswa')
-                            ->relationship(
-                                name: 'siswa',
-                                titleAttribute: 'name',
-                                modifyQueryUsing: fn (Builder $query) =>
-                                    $query->where('role', 'siswa')
-                            )
+                            ->relationship('siswa', 'nama')
                             ->searchable()
                             ->preload()
                             ->required(),
@@ -58,7 +52,7 @@ class AbsensiResource extends Resource
                                     . ' | '
                                     . $record->kelas->nama_kelas
                                     . ' | '
-                                    . $record->mataPelajaran->nama
+                                    . $record->mataPelajaran->nama_mata_pelajaran
                                     . ' | '
                                     . $record->jam_mulai . ' - ' . $record->jam_selesai;
                             })
@@ -101,7 +95,7 @@ class AbsensiResource extends Resource
         return $table
             ->columns([
 
-                Tables\Columns\TextColumn::make('siswa.name')
+                Tables\Columns\TextColumn::make('siswa.nama')
                     ->label('Siswa')
                     ->searchable()
                     ->sortable(),

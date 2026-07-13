@@ -12,7 +12,6 @@ class Rapor extends Model
     protected $fillable = [
         'siswa_id',
         'guru_id',
-        'kelas_id',
         'tahun_ajaran',
         'semester',
         'total_nilai',
@@ -37,19 +36,13 @@ class Rapor extends Model
     // Siswa pemilik rapor
     public function siswa()
     {
-        return $this->belongsTo(User::class, 'siswa_id');
+        return $this->belongsTo(Siswa::class, 'siswa_id');
     }
 
     // Wali Kelas
     public function guru()
     {
         return $this->belongsTo(Guru::class, 'guru_id');
-    }
-
-    // Kelas
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
     /*

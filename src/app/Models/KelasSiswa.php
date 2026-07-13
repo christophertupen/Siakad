@@ -10,10 +10,8 @@ class KelasSiswa extends Model
     protected $table = 'kelas_siswa';
 
     protected $fillable = [
-        'nama_siswa',
-        'nis',
+        'siswa_id',
         'kelas_id',
-        'orang_tua_id',
         'no_absen',
         'tahun_ajaran',
         'semester',
@@ -35,8 +33,8 @@ class KelasSiswa extends Model
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
-    public function orangTua(): BelongsTo
+    public function siswa(): BelongsTo
     {
-        return $this->belongsTo(OrangTua::class, 'orang_tua_id');
+        return $this->belongsTo(Siswa::class, 'siswa_id');
     }
 }

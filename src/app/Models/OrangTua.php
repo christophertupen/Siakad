@@ -12,6 +12,7 @@ class OrangTua extends Model
 
     protected $fillable = [
         'user_id',
+        'siswa_id',
         'nik',
         'nama',
         'hubungan',
@@ -36,8 +37,8 @@ class OrangTua extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function kelasSiswas(): HasMany
+    public function siswa(): BelongsTo
     {
-        return $this->hasMany(KelasSiswa::class, 'orang_tua_id');
+        return $this->belongsTo(Siswa::class, 'siswa_id');
     }
 }
