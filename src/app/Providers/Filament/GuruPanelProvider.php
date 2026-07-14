@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\EditProfile;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -28,6 +29,7 @@ class GuruPanelProvider extends PanelProvider
             // Authentication
             ->login()
             ->passwordReset()
+            ->profile(EditProfile::class, isSimple: false)
 
             // Appearance
             ->colors([
@@ -55,7 +57,11 @@ class GuruPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
 
-            ->widgets([])
+            ->widgets([
+                \App\Filament\Guru\Widgets\WelcomeHeader::class,
+                \App\Filament\Guru\Widgets\StatsOverview::class,
+                \App\Filament\Guru\Widgets\JadwalHariIni::class,
+            ])
 
             // Middleware
             ->middleware([

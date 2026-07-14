@@ -26,10 +26,13 @@ class JadwalHariIni extends BaseWidget
             ->columns([
                 Tables\Columns\TextColumn::make('jam_mulai')
                     ->label('Jam')
+                    ->badge()
+                    ->color('gray')
+                    ->icon('heroicon-m-clock')
                     ->formatStateUsing(fn (JadwalPelajaran $record): string => sprintf(
                         '%s - %s',
-                        $record->jam_mulai,
-                        $record->jam_selesai
+                        \Carbon\Carbon::parse($record->jam_mulai)->format('H:i'),
+                        \Carbon\Carbon::parse($record->jam_selesai)->format('H:i')
                     )),
                 Tables\Columns\TextColumn::make('mataPelajaran.nama_mata_pelajaran')
                     ->label('Mata Pelajaran')

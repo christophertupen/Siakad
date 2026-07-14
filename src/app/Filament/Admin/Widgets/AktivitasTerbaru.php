@@ -26,6 +26,7 @@ class AktivitasTerbaru extends BaseWidget
             ->columns([
                 Tables\Columns\TextColumn::make('causer.name')
                     ->label('User')
+                    ->icon('heroicon-m-user')
                     ->placeholder('-'),
                 Tables\Columns\TextColumn::make('description')
                     ->label('Deskripsi Aktivitas')
@@ -34,6 +35,7 @@ class AktivitasTerbaru extends BaseWidget
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Tanggal')
                     ->dateTime('d M Y H:i')
+                    ->description(fn ($record): string => $record->created_at->diffForHumans())
                     ->sortable(),
             ])
             ->paginated(false);

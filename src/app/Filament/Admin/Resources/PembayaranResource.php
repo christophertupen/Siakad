@@ -318,62 +318,29 @@ public static function getNavigationBadge(): ?string
 
         ->actions([
 
-            Tables\Actions\Action::make('generateMidtrans')
-                ->label('Generate Midtrans')
-                ->icon('heroicon-m-bolt')
-                ->color('primary')
-                ->requiresConfirmation()
-                ->disabled(fn (Pembayaran $record): bool => $record->status !== 'Pending'
-                    || filled($record->midtrans_token)
-                    || blank(config('midtrans.server_key'))
-                    || blank(config('midtrans.client_key')))
-                ->tooltip(fn (): ?string => blank(config('midtrans.server_key')) || blank(config('midtrans.client_key'))
-                    ? 'Isi MIDTRANS_SERVER_KEY dan MIDTRANS_CLIENT_KEY di .env'
-                    : null)
-                ->action(function (Pembayaran $record, MidtransService $midtransService): void {
-                    try {
-                        $pembayaran = Pembayaran::query()
-                            ->whereKey($record->getKey())
-                            ->firstOrFail();
-
-                        if ($pembayaran->status !== 'Pending') {
-                            throw new RuntimeException('Midtrans hanya dapat dibuat untuk pembayaran Pending.');
-                        }
-
-                        if (filled($pembayaran->midtrans_token)) {
-                            throw new RuntimeException('Snap Token sudah pernah dibuat.');
-                        }
-
-                        $transaction = $midtransService->createSnapTransaction($pembayaran);
-
-                        $pembayaran->update([
-                            'midtrans_order_id' => $transaction['order_id'],
-                            'midtrans_token' => $transaction['snap_token'],
-                            'status' => 'Pending',
-                        ]);
-
-                        Notification::make()
-                            ->title('Snap Token berhasil dibuat')
-                            ->success()
-                            ->send();
-                    } catch (Throwable $exception) {
-                        report($exception);
-
-                        Notification::make()
-                            ->title('Gagal generate Midtrans')
-                            ->body($exception->getMessage())
-                            ->danger()
-                            ->send();
-                    }
-                }),
-
             Tables\Actions\Action::make('pay')
                 ->label('Bayar')
                 ->icon('heroicon-o-credit-card')
                 ->color('success')
-                ->visible(fn (Pembayaran $record) => filled($record->midtrans_token))
+                ->visible(fn (Pembayaran $record) => $record->status === 'Pending')
                 ->url(fn (Pembayaran $record) => route('midtrans.pay', $record))
                 ->openUrlInNewTab(),
+
+            Tables\Actions\Action::make('checkStatus')
+                ->label('Cek Status')
+                ->icon('heroicon-o-arrow-path')
+                ->color('info')
+                ->visible(fn (Pembayaran $record) => filled($record->midtrans_order_id) && $record->status === 'Pending')
+                ->action(function (Pembayaran $record) {
+                    $service = app(\App\Services\MidtransService::class);
+                    $status = $service->checkStatus($record);
+                    
+                    \Filament\Notifications\Notification::make()
+                        ->title('Status Pembayaran')
+                        ->body('Status saat ini di Midtrans: ' . $status)
+                        ->success()
+                        ->send();
+                }),
 
             Tables\Actions\ViewAction::make(),
 

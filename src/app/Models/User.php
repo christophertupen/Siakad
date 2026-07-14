@@ -51,7 +51,23 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-public function canAccessPanel(Panel $panel): bool
+    protected static function booted(): void
+    {
+        static::saved(function (User $user) {
+            if (filled($user->role)) {
+                $spatieRole = match ($user->role) {
+                    'admin' => 'super_admin',
+                    default => $user->role,
+                };
+
+                if (! $user->hasRole($spatieRole)) {
+                    $user->syncRoles([$spatieRole]);
+                }
+            }
+        });
+    }
+
+    public function canAccessPanel(Panel $panel): bool
 {
     return match ($panel->getId()) {
 

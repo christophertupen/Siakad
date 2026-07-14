@@ -48,6 +48,7 @@ class MidtransCallbackController extends Controller
                 'midtrans_transaction_id' => $payload['transaction_id'] ?? $pembayaran->midtrans_transaction_id,
                 'midtrans_payment_type' => $payload['payment_type'] ?? $pembayaran->midtrans_payment_type,
                 'midtrans_transaction_status' => $transactionStatus ?? $pembayaran->midtrans_transaction_status,
+                'midtrans_response' => json_encode($payload),
                 'tanggal_bayar' => $status === 'Lunas'
                     ? now()
                     : $pembayaran->tanggal_bayar,

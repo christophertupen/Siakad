@@ -26,6 +26,7 @@ class Pembayaran extends Model
         'midtrans_transaction_id',
         'midtrans_payment_type',
         'midtrans_transaction_status',
+        'midtrans_response',
         'bukti_pembayaran',
         'catatan',
         'tanggal_bayar',

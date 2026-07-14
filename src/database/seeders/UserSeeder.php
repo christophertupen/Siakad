@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Guru;
+use App\Models\Siswa;
+use App\Models\OrangTua;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,16 +16,91 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::firstOrCreate(
+        // 1. Super Admin
+        $adminUser = User::firstOrCreate(
             ['email' => 'admin@admin.com'],
-            ['name' => 'Super Admin', 'password' => Hash::make('password')]
+            [
+                'name' => 'Super Admin',
+                'password' => Hash::make('password'),
+                'role' => 'admin',
+            ]
         );
-        $user->assignRole('super_admin');
+        $adminUser->assignRole('super_admin');
 
-        $user = User::firstOrCreate(
-            ['email' => 'user@admin.com'],
-            ['name' => 'User Account', 'password' => Hash::make('password')]
+        // 2. Guru
+        $guruUser = User::firstOrCreate(
+            ['email' => 'guru@admin.com'],
+            [
+                'name' => 'Guru Account',
+                'password' => Hash::make('password'),
+                'role' => 'guru',
+            ]
         );
-        $user->assignRole('user');
+        $guruUser->assignRole('guru');
+
+        Guru::firstOrCreate(
+            ['user_id' => $guruUser->id],
+            [
+                'nip' => '198203112009121003',
+                'nama' => 'Guru Account',
+                'gelar' => 'S.Pd',
+                'pendidikan_terakhir' => 'S1',
+                'bidang_keahlian' => 'Matematika',
+                'confirmed' => true,
+            ]
+        );
+
+        // 3. Siswa
+        $siswaUser = User::firstOrCreate(
+            ['email' => 'siswa@admin.com'],
+            [
+                'name' => 'Siswa Account',
+                'password' => Hash::make('password'),
+                'role' => 'siswa',
+            ]
+        );
+        $siswaUser->assignRole('siswa');
+
+        $siswa = Siswa::firstOrCreate(
+            ['user_id' => $siswaUser->id],
+            [
+                'nis' => '12345',
+                'nisn' => '0098765432',
+                'nama' => 'Siswa Account',
+                'jenis_kelamin' => 'Laki-laki',
+                'tempat_lahir' => 'Jakarta',
+                'tanggal_lahir' => '2010-05-15',
+                'agama' => 'Islam',
+                'alamat' => 'Jl. Merdeka No. 10',
+                'nomor_hp' => '081234567890',
+                'tanggal_masuk' => '2024-07-15',
+                'status' => true,
+            ]
+        );
+
+        // 4. Orang Tua
+        $orangTuaUser = User::firstOrCreate(
+            ['email' => 'orangtua@admin.com'],
+            [
+                'name' => 'Orang Tua Account',
+                'password' => Hash::make('password'),
+                'role' => 'orang_tua',
+            ]
+        );
+        $orangTuaUser->assignRole('orang_tua');
+
+        OrangTua::firstOrCreate(
+            ['user_id' => $orangTuaUser->id],
+            [
+                'siswa_id' => $siswa->id,
+                'nik' => '3171123456789001',
+                'nama' => 'Orang Tua Account',
+                'hubungan' => 'Ayah',
+                'pekerjaan' => 'Wiraswasta',
+                'nomor_telepon' => '089876543210',
+                'alamat' => 'Jl. Merdeka No. 10',
+                'status' => true,
+            ]
+        );
     }
 }

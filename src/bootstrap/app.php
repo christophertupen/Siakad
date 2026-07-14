@@ -16,5 +16,37 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (\Illuminate\Auth\Access\AuthorizationException $exception, \Illuminate\Http\Request $request) {
+            $panel = \Filament\Facades\Filament::getCurrentPanel();
+            if ($panel) {
+                $user = auth()->user();
+                if ($user) {
+                    // Determine the correct panel for this user
+                    $correctPanel = 'admin';
+                    if ($user->hasAnyRole(['super_admin', 'admin'])) {
+                        $correctPanel = 'admin';
+                    } elseif ($user->hasRole('guru')) {
+                        $correctPanel = 'guru';
+                    } elseif ($user->hasRole('siswa')) {
+                        $correctPanel = 'siswa';
+                    } elseif ($user->hasRole('orang_tua')) {
+                        $correctPanel = 'orang_tua';
+                    }
+
+                    // Log the user out from current session
+                    auth()->logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+
+                    // Send native notification to the new session
+                    \Filament\Notifications\Notification::make()
+                        ->title('Akses Ditolak')
+                        ->body('Anda tidak memiliki akses ke panel ' . ucfirst(str_replace('_', ' ', $panel->getId())) . '. Silakan gunakan login panel yang sesuai.')
+                        ->danger()
+                        ->send();
+
+                    return redirect()->route('filament.' . $correctPanel . '.auth.login');
+                }
+            }
+        });
     })->create();
