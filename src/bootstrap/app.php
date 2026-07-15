@@ -31,6 +31,8 @@ return Application::configure(basePath: dirname(__DIR__))
                         $correctPanel = 'siswa';
                     } elseif ($user->hasRole('orang_tua')) {
                         $correctPanel = 'orangtua';
+                    } elseif ($user->hasRole('akademik')) {
+                        $correctPanel = 'akademik';
                     }
 
                     // Log the user out from current session
