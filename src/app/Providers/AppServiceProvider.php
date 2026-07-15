@@ -29,6 +29,26 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::before(function ($user, $ability) {
+            if ($user->hasRole('super_admin')) {
+                return true;
+            }
+
+            $panel = \Filament\Facades\Filament::getCurrentPanel();
+            if ($panel) {
+                $panelId = $panel->getId();
+                if ($panelId === 'guru' && $user->hasRole('guru')) {
+                    return true;
+                }
+                if ($panelId === 'siswa' && $user->hasRole('siswa')) {
+                    return true;
+                }
+                if ($panelId === 'orangtua' && $user->hasRole('orang_tua')) {
+                    return true;
+                }
+            }
+        });
+
         Gate::policy(Activity::class, ActivityPolicy::class);
         Page::formActionsAlignment(Alignment::Right);
         Notifications::alignment(Alignment::End);

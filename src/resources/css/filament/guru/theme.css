@@ -1,0 +1,230 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@config '../../../../tailwind.config.js';
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* ==========================================================================
+   PREMIUM DESIGN SYSTEM OVERRIDES - GURU PANEL
+   ========================================================================== */
+
+/* 1. Global Background & Typography Adjustments */
+body.fi-body {
+    background-color: #F8FAFC !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+/* 2. Topbar & Header Custom Styling */
+.fi-topbar {
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.5) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02) !important;
+    height: 72px !important;
+}
+.dark .fi-topbar {
+    background: rgba(15, 23, 42, 0.8) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* 3. Bento Card Form & Panel Overrides */
+.fi-section, 
+.fi-card,
+.fi-fo-section,
+.fi-fo-wizard {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    padding: 24px !important;
+}
+.dark .fi-section, 
+.dark .fi-card,
+.dark .fi-fo-section,
+.dark .fi-fo-wizard {
+    background: rgba(20, 26, 45, 0.65) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2) !important;
+}
+.fi-section:hover,
+.fi-fo-section:hover {
+    box-shadow: 0 16px 32px -8px rgba(37, 99, 235, 0.05) !important;
+    border-color: rgba(37, 99, 235, 0.2) !important;
+}
+.dark .fi-section:hover,
+.dark .fi-fo-section:hover {
+    box-shadow: 0 16px 32px -8px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* 4. Form Fields, Inputs & Selects */
+.fi-input-wrp {
+    border-radius: 12px !important;
+    border: 1px solid rgba(203, 213, 225, 0.8) !important;
+    background-color: #F8FAFC !important;
+    transition: all 0.2s ease-in-out !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.01) !important;
+    height: 44px !important;
+}
+.dark .fi-input-wrp {
+    background-color: #1E293B !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.fi-input-wrp:focus-within {
+    border-color: #2563EB !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15) !important;
+}
+.fi-input-wrp input, 
+.fi-input-wrp select {
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+}
+
+/* Textarea specific */
+textarea.fi-fo-textarea,
+.fi-fo-rich-editor {
+    border-radius: 12px !important;
+    border: 1px solid rgba(203, 213, 225, 0.8) !important;
+    background-color: #F8FAFC !important;
+    transition: all 0.2s ease-in-out !important;
+}
+.dark textarea.fi-fo-textarea,
+.dark .fi-fo-rich-editor {
+    background-color: #1E293B !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+textarea.fi-fo-textarea:focus,
+.fi-fo-rich-editor:focus-within {
+    border-color: #2563EB !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15) !important;
+}
+
+/* 5. Modern Toggle / Switch Styling */
+button[role="switch"] {
+    border-radius: 9999px !important;
+    transition: background-color 0.2s ease !important;
+}
+button[role="switch"][aria-checked="true"] {
+    background-color: #2563EB !important;
+}
+
+/* 6. Buttons Styling */
+.fi-btn {
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    height: 42px !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.fi-btn:hover {
+    transform: translateY(-2px) !important;
+}
+.fi-btn:active {
+    transform: translateY(0) !important;
+}
+.fi-btn-color-primary {
+    background: linear-gradient(135deg, #2563EB, #3B82F6) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2) !important;
+    border: none !important;
+}
+.fi-btn-color-primary:hover {
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3) !important;
+}
+.fi-btn-color-gray {
+    background-color: #F1F5F9 !important;
+    color: #334155 !important;
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+.dark .fi-btn-color-gray {
+    background-color: #1E293B !important;
+    color: #CBD5E1 !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+}
+.fi-btn-color-danger {
+    background-color: #FEF2F2 !important;
+    color: #EF4444 !important;
+    border: 1px solid rgba(239, 68, 68, 0.1) !important;
+}
+.dark .fi-btn-color-danger {
+    background-color: rgba(239, 68, 68, 0.1) !important;
+    color: #F87171 !important;
+}
+
+/* 7. Tables & Table Actions */
+.fi-ta-ctn {
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03) !important;
+    background-color: #FFFFFF !important;
+}
+.dark .fi-ta-ctn {
+    border-color: rgba(255, 255, 255, 0.05) !important;
+    background-color: #0F172A !important;
+}
+.fi-ta-header {
+    background-color: #F8FAFC !important;
+}
+.dark .fi-ta-header {
+    background-color: #1E293B !important;
+}
+.fi-ta-row {
+    transition: background-color 0.2s ease !important;
+}
+.fi-ta-row:hover {
+    background-color: rgba(37, 99, 235, 0.03) !important;
+}
+.dark .fi-ta-row:hover {
+    background-color: rgba(37, 99, 235, 0.06) !important;
+}
+
+/* Action button items */
+.fi-ta-actions .fi-icon-btn,
+.fi-ta-actions .fi-btn {
+    border-radius: 8px !important;
+}
+
+/* 8. Widgets & Stats Overview */
+.fi-wi-stats-overview-card {
+    border-radius: 16px !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03) !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+}
+.dark .fi-wi-stats-overview-card {
+    background: rgba(20, 26, 45, 0.65) !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* 9. Modal Windows Customization */
+.fi-modal-window {
+    border-radius: 20px !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15) !important;
+}
+.dark .fi-modal-window {
+    background: rgba(15, 23, 42, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 10. Toast Notification Style */
+.fi-fo-notification,
+.fi-ta-notification,
+.fi-notifications {
+    border-radius: 16px !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08) !important;
+}

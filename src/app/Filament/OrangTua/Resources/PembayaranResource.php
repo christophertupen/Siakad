@@ -10,7 +10,7 @@ use Filament\Tables;
 class PembayaranResource extends AdminResource
 {
     protected static ?string $navigationGroup = null;
-
+    protected static bool $shouldRegisterNavigation = false;
     protected static ?string $navigationLabel = 'Pembayaran Anak';
 
     public static function getEloquentQuery(): Builder

@@ -10,6 +10,7 @@ use Filament\Tables;
 class MateriResource extends AdminResource
 {
     protected static ?string $navigationGroup = null;
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function getEloquentQuery(): Builder
     {

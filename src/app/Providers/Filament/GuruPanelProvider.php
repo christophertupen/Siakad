@@ -25,6 +25,7 @@ class GuruPanelProvider extends PanelProvider
         return $panel
             ->id('guru')
             ->path('guru')
+            ->viteTheme('resources/css/filament/guru/theme.css')
 
             // Authentication
             ->login()
@@ -54,7 +55,7 @@ class GuruPanelProvider extends PanelProvider
 
             // Dashboard
             ->pages([
-                Pages\Dashboard::class,
+                \App\Filament\Guru\Pages\Dashboard::class,
             ])
 
             ->widgets([

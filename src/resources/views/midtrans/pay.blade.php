@@ -21,7 +21,7 @@ window.snap.pay('{{ $snapToken }}', {
 
         alert("Pembayaran Berhasil");
 
-        window.location.href = "{{ auth()->user()?->hasRole('siswa') ? '/siswa/pembayarans' : (auth()->user()?->hasRole('orang_tua') ? '/orang-tua/pembayarans' : '/admin/pembayarans') }}";
+        window.location.href = "{{ auth()->user()?->hasRole('siswa') ? '/siswa/pembayarans' : (auth()->user()?->hasRole('orang_tua') ? '/orangtua/pembayarans' : '/admin/pembayarans') }}";
 
     },
 
@@ -29,7 +29,7 @@ window.snap.pay('{{ $snapToken }}', {
 
         alert("Menunggu Pembayaran");
 
-        window.location.href = "{{ auth()->user()?->hasRole('siswa') ? '/siswa/pembayarans' : (auth()->user()?->hasRole('orang_tua') ? '/orang-tua/pembayarans' : '/admin/pembayarans') }}";
+        window.location.href = "{{ auth()->user()?->hasRole('siswa') ? '/siswa/pembayarans' : (auth()->user()?->hasRole('orang_tua') ? '/orangtua/pembayarans' : '/admin/pembayarans') }}";
 
     },
 
@@ -37,13 +37,13 @@ window.snap.pay('{{ $snapToken }}', {
 
         alert("Pembayaran Gagal");
 
-        window.location.href = "{{ auth()->user()?->hasRole('siswa') ? '/siswa/pembayarans' : (auth()->user()?->hasRole('orang_tua') ? '/orang-tua/pembayarans' : '/admin/pembayarans') }}";
+        window.location.href = "{{ auth()->user()?->hasRole('siswa') ? '/siswa/pembayarans' : (auth()->user()?->hasRole('orang_tua') ? '/orangtua/pembayarans' : '/admin/pembayarans') }}";
 
     },
 
     onClose: function(){
 
-        window.location.href = "{{ auth()->user()?->hasRole('siswa') ? '/siswa/pembayarans' : (auth()->user()?->hasRole('orang_tua') ? '/orang-tua/pembayarans' : '/admin/pembayarans') }}";
+        window.location.href = "{{ auth()->user()?->hasRole('siswa') ? '/siswa/pembayarans' : (auth()->user()?->hasRole('orang_tua') ? '/orangtua/pembayarans' : '/admin/pembayarans') }}";
 
     }
 

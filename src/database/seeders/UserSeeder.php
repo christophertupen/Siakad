@@ -37,6 +37,7 @@ class UserSeeder extends Seeder
             ]
         );
         $guruUser->assignRole('guru');
+        $guruUser->assignRole('panel_user_guru');
 
         Guru::firstOrCreate(
             ['user_id' => $guruUser->id],
@@ -60,6 +61,7 @@ class UserSeeder extends Seeder
             ]
         );
         $siswaUser->assignRole('siswa');
+        $siswaUser->assignRole('panel_user_siswa');
 
         $siswa = Siswa::firstOrCreate(
             ['user_id' => $siswaUser->id],
@@ -79,15 +81,26 @@ class UserSeeder extends Seeder
         );
 
         // 4. Orang Tua
-        $orangTuaUser = User::firstOrCreate(
-            ['email' => 'orangtua@admin.com'],
-            [
+        // Update password for any existing users with 'orang_tua' role to 'password'
+        User::where('role', 'orang_tua')->update([
+            'password' => Hash::make('password'),
+        ]);
+
+        $orangTuaUser = User::where('email', 'orangtua@admin.com')->first();
+        if ($orangTuaUser) {
+            $orangTuaUser->update([
+                'password' => Hash::make('password'),
+            ]);
+        } else {
+            $orangTuaUser = User::create([
+                'email' => 'orangtua@admin.com',
                 'name' => 'Orang Tua Account',
                 'password' => Hash::make('password'),
                 'role' => 'orang_tua',
-            ]
-        );
+            ]);
+        }
         $orangTuaUser->assignRole('orang_tua');
+        $orangTuaUser->assignRole('panel_user_orangtua');
 
         OrangTua::firstOrCreate(
             ['user_id' => $orangTuaUser->id],

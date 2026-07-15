@@ -24,8 +24,8 @@ class OrangTuaPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->id('orang_tua')
-            ->path('orang-tua')
+            ->id('orangtua')
+            ->path('orangtua')
             ->defaultThemeMode(ThemeMode::Light)
             ->font('Montserrat')
             ->colors([
@@ -38,7 +38,7 @@ class OrangTuaPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/OrangTua/Pages'), for: 'App\\Filament\\OrangTua\\Pages')
             ->discoverWidgets(in: app_path('Filament/OrangTua/Widgets'), for: 'App\\Filament\\OrangTua\\Widgets')
             ->pages([
-                Pages\Dashboard::class,
+                \App\Filament\OrangTua\Pages\Dashboard::class,
             ])
             ->widgets([])
             ->middleware([

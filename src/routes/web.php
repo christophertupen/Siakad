@@ -20,7 +20,23 @@ Livewire::setScriptRoute(function ($handle) {
 / END
 */
 Route::get('/', function () {
-    return view('landing.home');
+    $settings = \App\Models\PengaturanWeb::firstOrCreate([]);
+
+    $keunggulans = \App\Models\Keunggulan::where('status', true)->orderBy('order', 'asc')->get();
+    $fiturAkademiks = \App\Models\FiturAkademik::where('status', true)->orderBy('order', 'asc')->get();
+    $news = \App\Models\Berita::where('status_publish', true)->orderBy('tanggal', 'desc')->take(3)->get();
+    $galleries = \App\Models\Galeri::where('status', true)->latest()->take(8)->get();
+    $testimonials = \App\Models\Testimoni::where('status', true)->latest()->get();
+    $faqs = \App\Models\Faq::where('status', true)->orderBy('order', 'asc')->get();
+
+    $stats = [
+        'siswa' => $settings->stats_mode === 'auto' ? \App\Models\Siswa::count() : ($settings->stats_siswa_manual ?? 0),
+        'guru' => $settings->stats_mode === 'auto' ? \App\Models\Guru::count() : ($settings->stats_guru_manual ?? 0),
+        'kelas' => $settings->stats_mode === 'auto' ? \App\Models\Kelas::count() : ($settings->stats_kelas_manual ?? 0),
+        'alumni' => $settings->stats_alumni_manual ?? 0,
+    ];
+
+    return view('landing.home', compact('settings', 'keunggulans', 'fiturAkademiks', 'news', 'galleries', 'testimonials', 'faqs', 'stats'));
 });
 
 Route::get('/midtrans/pay/{pembayaran}', [MidtransController::class, 'pay'])->name('midtrans.pay');

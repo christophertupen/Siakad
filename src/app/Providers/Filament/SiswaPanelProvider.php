@@ -38,7 +38,7 @@ class SiswaPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Siswa/Pages'), for: 'App\\Filament\\Siswa\\Pages')
             ->discoverWidgets(in: app_path('Filament/Siswa/Widgets'), for: 'App\\Filament\\Siswa\\Widgets')
             ->pages([
-                Pages\Dashboard::class,
+                \App\Filament\Siswa\Pages\Dashboard::class,
             ])
             ->widgets([])
             ->middleware([
