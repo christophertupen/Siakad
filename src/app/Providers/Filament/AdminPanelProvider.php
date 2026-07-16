@@ -123,6 +123,9 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label('Website'),
 
+                NavigationGroup::make()
+                    ->label('PPDB'),
+
             ])
 
             ->userMenuItems([

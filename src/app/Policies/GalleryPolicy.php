@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Galeri;
+use App\Models\Gallery;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class GaleriPolicy
+class GalleryPolicy
 {
     use HandlesAuthorization;
 
@@ -15,15 +15,15 @@ class GaleriPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_galeri');
+        return $user->can('view_any_gallery');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Galeri $galeri): bool
+    public function view(User $user, Gallery $gallery): bool
     {
-        return $user->can('view_galeri');
+        return $user->can('view_gallery');
     }
 
     /**
@@ -31,23 +31,23 @@ class GaleriPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_galeri');
+        return $user->can('create_gallery');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Galeri $galeri): bool
+    public function update(User $user, Gallery $gallery): bool
     {
-        return $user->can('update_galeri');
+        return $user->can('update_gallery');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Galeri $galeri): bool
+    public function delete(User $user, Gallery $gallery): bool
     {
-        return $user->can('delete_galeri');
+        return $user->can('delete_gallery');
     }
 
     /**
@@ -55,13 +55,13 @@ class GaleriPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_galeri');
+        return $user->can('delete_any_gallery');
     }
 
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, Galeri $galeri): bool
+    public function forceDelete(User $user, Gallery $gallery): bool
     {
         return $user->can('{{ ForceDelete }}');
     }
@@ -77,7 +77,7 @@ class GaleriPolicy
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, Galeri $galeri): bool
+    public function restore(User $user, Gallery $gallery): bool
     {
         return $user->can('{{ Restore }}');
     }
@@ -93,7 +93,7 @@ class GaleriPolicy
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, Galeri $galeri): bool
+    public function replicate(User $user, Gallery $gallery): bool
     {
         return $user->can('{{ Replicate }}');
     }

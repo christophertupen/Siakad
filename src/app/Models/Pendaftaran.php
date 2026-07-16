@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Galeri extends Model
+class Pendaftaran extends Model
 {
     use HasFactory;
 
-    protected $table = 'galeris';
+    protected $table = 'pendaftarans';
 
     protected $fillable = [
-        'image',
-        'caption',
-        'kategori',
+        'nama',
+        'email',
+        'no_hp',
+        'asal_sekolah',
+        'jurusan',
+        'berkas',
         'status',
-    ];
-
-    protected $casts = [
-        'status' => 'boolean',
+        'catatan',
     ];
 }

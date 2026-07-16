@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\MidtransController;
+use App\Http\Controllers\PPDBController;
+use App\Http\Controllers\RegistrasiController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Illuminate\Support\Facades\Response;
@@ -25,7 +27,13 @@ Route::get('/', function () {
     $keunggulans = \App\Models\Keunggulan::where('status', true)->orderBy('order', 'asc')->get();
     $fiturAkademiks = \App\Models\FiturAkademik::where('status', true)->orderBy('order', 'asc')->get();
     $news = \App\Models\Berita::where('status_publish', true)->orderBy('tanggal', 'desc')->take(3)->get();
-    $galleries = \App\Models\Galeri::where('status', true)->latest()->take(8)->get();
+    $galleries = \App\Models\GalleryPhoto::where('is_active', true)
+        ->whereHas('gallery', function ($query) {
+            $query->where('is_active', true);
+        })
+        ->latest()
+        ->take(8)
+        ->get();
     $testimonials = \App\Models\Testimoni::where('status', true)->latest()->get();
     $faqs = \App\Models\Faq::where('status', true)->orderBy('order', 'asc')->get();
 
@@ -34,6 +42,7 @@ Route::get('/', function () {
         'guru' => $settings->stats_mode === 'auto' ? \App\Models\Guru::count() : ($settings->stats_guru_manual ?? 0),
         'kelas' => $settings->stats_mode === 'auto' ? \App\Models\Kelas::count() : ($settings->stats_kelas_manual ?? 0),
         'alumni' => $settings->stats_alumni_manual ?? 0,
+        'pendaftar' => \App\Models\Pendaftaran::count(),
     ];
 
     return view('landing.home', compact('settings', 'keunggulans', 'fiturAkademiks', 'news', 'galleries', 'testimonials', 'faqs', 'stats'));
@@ -42,5 +51,9 @@ Route::get('/', function () {
 Route::get('/midtrans/pay/{pembayaran}', [MidtransController::class, 'pay'])->name('midtrans.pay');
 
 Route::redirect('/login', '/admin/login')->name('login');
+
+Route::post('/ppdb/daftar', [PPDBController::class, 'store'])->name('ppdb.store');
+
+Route::post('/registrasi/akun', [RegistrasiController::class, 'register'])->name('registrasi.store');
 
 

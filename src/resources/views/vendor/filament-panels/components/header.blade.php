@@ -17,7 +17,7 @@
     <header {{ $attributes->class(['fi-header flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between py-6 mb-4']) }}>
         <div class="space-y-3">
             @if ($breadcrumbs)
-                <x-filament-panels::breadcrumbs :breadcrumbs="$breadcrumbs" class="text-xs text-slate-400 dark:text-slate-500 font-medium" />
+                <x-filament::breadcrumbs :breadcrumbs="$breadcrumbs" class="text-xs text-slate-400 dark:text-slate-500 font-medium" />
             @endif
 
             <div class="flex items-center gap-3">
@@ -76,7 +76,7 @@
         </div>
 
         @if ($actions)
-            <x-filament-panels::actions :actions="$actions" class="shrink-0" />
+            <x-filament::actions :actions="$actions" class="shrink-0" />
         @endif
     </header>
 @else
@@ -84,7 +84,7 @@
     <header {{ $attributes->class(['fi-header flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between']) }}>
         <div>
             @if ($breadcrumbs)
-                <x-filament-panels::breadcrumbs :breadcrumbs="$breadcrumbs" class="mb-2" />
+                <x-filament::breadcrumbs :breadcrumbs="$breadcrumbs" class="mb-2" />
             @endif
 
             <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
@@ -99,7 +99,7 @@
         </div>
 
         @if ($actions)
-            <x-filament-panels::actions :actions="$actions" class="shrink-0" />
+            <x-filament::actions :actions="$actions" class="shrink-0" />
         @endif
     </header>
 @endif

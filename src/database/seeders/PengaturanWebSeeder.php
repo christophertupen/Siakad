@@ -6,7 +6,8 @@ use App\Models\PengaturanWeb;
 use App\Models\Keunggulan;
 use App\Models\FiturAkademik;
 use App\Models\Berita;
-use App\Models\Galeri;
+use App\Models\Gallery;
+use App\Models\GalleryPhoto;
 use App\Models\Testimoni;
 use App\Models\Faq;
 use Illuminate\Database\Seeder;
@@ -184,15 +185,23 @@ class PengaturanWebSeeder extends Seeder
         }
 
         // 5. Seed Galeris
+        $gallery = Gallery::updateOrCreate(
+            ['title' => 'Galeri Utama Sekolah'],
+            ['description' => 'Dokumentasi berbagai aktivitas, fasilitas, dan event sekolah.', 'is_active' => true]
+        );
+
         $galeris = [
-            ['image' => 'gallery/pramuka.jpg', 'caption' => 'Kegiatan Pramuka', 'kategori' => 'Kegiatan'],
-            ['image' => 'gallery/lab.jpg', 'caption' => 'Praktikum Lab Sains', 'kategori' => 'Fasilitas'],
-            ['image' => 'gallery/wisuda.jpg', 'caption' => 'Wisuda Angkatan', 'kategori' => 'Event'],
-            ['image' => 'gallery/olahraga.jpg', 'caption' => 'Pekan Olahraga', 'kategori' => 'Kegiatan'],
+            ['image' => 'gallery/pramuka.jpg', 'caption' => 'Kegiatan Pramuka', 'is_active' => true],
+            ['image' => 'gallery/lab.jpg', 'caption' => 'Praktikum Lab Sains', 'is_active' => true],
+            ['image' => 'gallery/wisuda.jpg', 'caption' => 'Wisuda Angkatan', 'is_active' => true],
+            ['image' => 'gallery/olahraga.jpg', 'caption' => 'Pekan Olahraga', 'is_active' => true],
         ];
 
         foreach ($galeris as $g) {
-            Galeri::updateOrCreate(['caption' => $g['caption']], $g);
+            GalleryPhoto::updateOrCreate(
+                ['gallery_id' => $gallery->id, 'caption' => $g['caption']],
+                $g
+            );
         }
 
         // 6. Seed Testimonis
