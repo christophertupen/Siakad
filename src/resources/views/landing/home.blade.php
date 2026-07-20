@@ -117,6 +117,22 @@
 
 <body x-data="{ mobileMenuOpen: false, modalOpen: {{ $errors->any() ? 'true' : 'false' }}, step: {{ $errors->any() ? '2' : '1' }}, role: '{{ old('role', '') }}', mode: 'login' }" :class="modalOpen ? 'overflow-hidden' : ''" @close-modal.window="modalOpen = false; step = 1; role = ''; mode = 'login';">
 
+    <!-- Global Session Alerts -->
+    @if(session('success'))
+        <div x-data="{ show: true }" x-show="show" class="fixed top-4 right-4 z-50 bg-green-500 text-white px-6 py-3 rounded shadow-lg flex items-center gap-3">
+            <i class="fa-solid fa-check-circle"></i>
+            <span>{{ session('success') }}</span>
+            <button @click="show = false" class="text-white hover:text-green-200"><i class="fa-solid fa-times"></i></button>
+        </div>
+    @endif
+    @if(session('error'))
+        <div x-data="{ show: true }" x-show="show" class="fixed top-4 right-4 z-50 bg-red-500 text-white px-6 py-3 rounded shadow-lg flex items-center gap-3">
+            <i class="fa-solid fa-exclamation-circle"></i>
+            <span>{{ session('error') }}</span>
+            <button @click="show = false" class="text-white hover:text-red-200"><i class="fa-solid fa-times"></i></button>
+        </div>
+    @endif
+
     <!-- Ambient Mesh Gradients -->
     <div class="absolute top-0 left-0 w-full overflow-hidden h-[900px] z-0 pointer-events-none">
         <div class="glow-sphere absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary rounded-full"></div>
@@ -779,6 +795,13 @@
                             <input type="email" name="email" value="{{ old('email') }}" required class="w-full px-4 py-2.5 rounded-premium border border-slate-200 focus:outline-none focus:border-primary text-sm transition-all" placeholder="Masukkan email Anda">
                             @error('email')
                                 <span class="text-xs text-red-500 font-medium">{{ $message }}</span>
+                                @if(session('show_resend'))
+                                    <div class="mt-2 block">
+                                        <button type="button" onclick="document.getElementById('resend-form').submit();" class="text-xs font-bold text-primary hover:underline bg-primary/10 px-3 py-1.5 rounded-premium inline-flex items-center gap-2">
+                                            <i class="fa-solid fa-paper-plane"></i> Kirim Ulang Email Verifikasi
+                                        </button>
+                                    </div>
+                                @endif
                             @enderror
                         </div>
 
@@ -799,6 +822,14 @@
                         </div>
                     </form>
 
+                    <!-- HIDDEN FORM FOR RESEND VERIFICATION -->
+                    @if(session('show_resend'))
+                        <form id="resend-form" action="{{ route('verification.send') }}" method="POST" style="display: none;">
+                            @csrf
+                            <input type="hidden" name="email" value="{{ session('resend_email') }}">
+                        </form>
+                    @endif
+
                     <!-- REGISTER FORM -->
                     <form x-show="mode === 'register'" id="registrasi-form" class="space-y-4" @submit.prevent="submitRegistrasi($event)">
                         @csrf
@@ -818,6 +849,12 @@
                             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wide">Email</label>
                             <input type="email" name="email" required class="w-full px-4 py-2.5 rounded-premium border border-slate-200 focus:outline-none focus:border-primary text-sm transition-all" placeholder="name@example.com">
                             <p class="text-xs text-red-500 mt-1 hidden" id="err-email"></p>
+                            
+                            <!-- Notifikasi Info Wajib Verifikasi -->
+                            <div class="mt-2 flex items-start gap-2 bg-blue-50 text-blue-700 p-2 rounded-md border border-blue-100">
+                                <i class="fa-solid fa-circle-info mt-0.5 text-xs"></i>
+                                <p class="text-xs">Pastikan email yang Anda masukkan aktif. Anda <b>diwajibkan</b> untuk melakukan verifikasi melalui link yang akan kami kirimkan ke email ini sebelum bisa login.</p>
+                            </div>
                         </div>
 
                         <!-- Nomor HP -->

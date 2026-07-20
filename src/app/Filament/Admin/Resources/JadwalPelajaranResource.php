@@ -75,7 +75,30 @@ class JadwalPelajaranResource extends Resource
 
                         Forms\Components\TimePicker::make('jam_selesai')
                             ->required()
-                            ->seconds(false),
+                            ->seconds(false)
+                            ->rule(static function (Forms\Get $get, ?\Illuminate\Database\Eloquent\Model $record) {
+                                return static function (string $attribute, $value, \Closure $fail) use ($get, $record) {
+                                    $guruId = $get('guru_id');
+                                    $hari = $get('hari');
+                                    $jamMulai = $get('jam_mulai');
+                                    $jamSelesai = $value;
+
+                                    if ($guruId && $hari && $jamMulai && $jamSelesai) {
+                                        $query = \App\Models\JadwalPelajaran::where('guru_id', $guruId)
+                                            ->where('hari', $hari)
+                                            ->where('jam_mulai', '<', $jamSelesai)
+                                            ->where('jam_selesai', '>', $jamMulai);
+
+                                        if ($record) {
+                                            $query->where('id', '!=', $record->id);
+                                        }
+
+                                        if ($query->exists()) {
+                                            $fail('Jadwal bentrok. Guru sudah memiliki jadwal mengajar pada waktu tersebut.');
+                                        }
+                                    }
+                                };
+                            }),
 
                         Forms\Components\TextInput::make('tahun_ajaran')
                             ->placeholder('2026/2027')

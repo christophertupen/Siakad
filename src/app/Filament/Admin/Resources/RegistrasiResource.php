@@ -87,7 +87,24 @@ class RegistrasiResource extends Resource
                     ->icon('heroicon-o-check-circle')
                     ->requiresConfirmation()
                     ->visible(fn (Registrasi $record) => $record->status === 'Pending')
-                    ->form([
+                    ->form(fn (Registrasi $record) => [
+                        Forms\Components\Select::make('kelas_id')
+                            ->label('Pilih Kelas')
+                            ->options(\App\Models\Kelas::pluck('nama_kelas', 'id'))
+                            ->visible($record->role === 'siswa')
+                            ->required($record->role === 'siswa'),
+                        
+                        Forms\Components\TextInput::make('tahun_ajaran')
+                            ->label('Tahun Ajaran (misal: 2026/2027)')
+                            ->visible($record->role === 'siswa')
+                            ->required($record->role === 'siswa'),
+
+                        Forms\Components\Select::make('semester')
+                            ->label('Semester')
+                            ->options(['Ganjil' => 'Ganjil', 'Genap' => 'Genap'])
+                            ->visible($record->role === 'siswa')
+                            ->required($record->role === 'siswa'),
+
                         Forms\Components\Textarea::make('catatan_admin')
                             ->label('Catatan (Opsional)')
                     ])
@@ -103,13 +120,21 @@ class RegistrasiResource extends Resource
                             // Panel access role based on original PRD
                             if ($role === 'siswa') {
                                 $user->assignRole('panel_user_siswa');
-                                Siswa::create([
+                                $siswa = Siswa::create([
                                     'user_id' => $user->id,
                                     'nis' => $extra['nis'] ?? '-',
                                     'nama' => $user->name,
                                     'nomor_hp' => $extra['nomor_hp'] ?? null,
                                     'jenis_kelamin' => 'Laki-laki', // Default fallback
                                     'tanggal_masuk' => now()->toDateString(),
+                                    'status' => true,
+                                ]);
+                                
+                                \App\Models\KelasSiswa::create([
+                                    'siswa_id' => $siswa->id,
+                                    'kelas_id' => $data['kelas_id'],
+                                    'tahun_ajaran' => $data['tahun_ajaran'],
+                                    'semester' => $data['semester'],
                                     'status' => true,
                                 ]);
                             } elseif ($role === 'guru') {

@@ -66,26 +66,26 @@ class NilaiResource extends Resource
 
                         Forms\Components\TextInput::make('nilai_tugas')
                             ->numeric()
-                            ->minvalue(0)
-                            ->maxvalue(100)
+                            ->minValue(0)
+                            ->maxValue(100)
                             ->required()
-                            ->live()
+                            ->live(onBlur: true)
                             ->afterStateUpdated(fn(Get $get, Set $set) => self::hitungNilai($get, $set)),
 
                         Forms\Components\TextInput::make('nilai_uts')
                             ->numeric()
-                            ->minvalue(0)
-                            ->maxvalue(100)
+                            ->minValue(0)
+                            ->maxValue(100)
                             ->required()
-                            ->live()
+                            ->live(onBlur: true)
                             ->afterStateUpdated(fn(Get $get, Set $set) => self::hitungNilai($get, $set)),
 
                         Forms\Components\TextInput::make('nilai_uas')
                             ->numeric()
-                            ->minvalue(0)
-                            ->maxvalue(100)
+                            ->minValue(0)
+                            ->maxValue(100)
                             ->required()
-                            ->live()
+                            ->live(onBlur: true)
                             ->afterStateUpdated(fn(Get $get, Set $set) => self::hitungNilai($get, $set)),
 
                         Forms\Components\TextInput::make('nilai_akhir')
@@ -118,9 +118,9 @@ class NilaiResource extends Resource
 
     protected static function hitungNilai(Get $get, Set $set): void
     {
-        $tugas = (float) $get('nilai_tugas' ?? 0);
-        $uts = (float) $get('nilai_uts' ?? 0);
-        $uas = (float) $get('nilai_uas' ?? 0);
+        $tugas = (float) ($get('nilai_tugas') ?? 0);
+        $uts = (float) ($get('nilai_uts') ?? 0);
+        $uas = (float) ($get('nilai_uas') ?? 0);
 
         if ($tugas || $uts || $uas) {
 

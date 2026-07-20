@@ -93,7 +93,7 @@ class KelasResource extends Resource
 
                 Tables\Columns\TextColumn::make('kelasSiswa_count')
                     ->label('jumlah Siswa')
-                    ->counts('siswa')
+                    ->counts('kelasSiswas')
                     ->badge(),
 
                 Tables\Columns\IconColumn::make('status')

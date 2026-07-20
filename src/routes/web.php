@@ -59,4 +59,9 @@ Route::post('/ppdb/daftar', [PPDBController::class, 'store'])->name('ppdb.store'
 
 Route::post('/registrasi/akun', [RegistrasiController::class, 'register'])->name('registrasi.store');
 
+// Email Verification Routes
+Route::get('/email/verify/{id}/{hash}', [\App\Http\Controllers\VerificationController::class, 'verify'])
+    ->name('verification.verify');
 
+Route::post('/email/resend', [\App\Http\Controllers\VerificationController::class, 'resend'])
+    ->name('verification.send');

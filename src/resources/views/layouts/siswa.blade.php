@@ -185,6 +185,13 @@
                 <span class="material-symbols-outlined">auto_stories</span>
                 <span>Materi</span>
             </a>
+            <!-- Bank Soal -->
+            @if ($activeKelasName && (str_contains($activeKelasName, '12') || $activeKelasSiswa?->kelas?->tingkat === 'XII'))
+            <a class="{{ request()->is('siswa/bank-soal*') ? 'bg-primary-container text-on-primary-container dark:bg-primary-fixed dark:text-on-primary-fixed' : 'text-on-surface-variant hover:text-primary dark:text-outline-variant hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/50' }} p-3 flex items-center gap-3 transition-all rounded-xl font-semibold" href="/siswa/bank-soal">
+                <span class="material-symbols-outlined">quiz</span>
+                <span>Bank Soal</span>
+            </a>
+            @endif
             <!-- Tugas -->
             <a class="{{ $isTugas ? 'bg-primary-container text-on-primary-container dark:bg-primary-fixed dark:text-on-primary-fixed' : 'text-on-surface-variant hover:text-primary dark:text-outline-variant hover:bg-surface-variant/50 dark:hover:bg-surface-container-highest/50' }} p-3 flex items-center gap-3 transition-all rounded-xl font-semibold" href="/siswa/tugas">
                 <span class="material-symbols-outlined">assignment</span>

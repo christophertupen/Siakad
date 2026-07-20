@@ -67,6 +67,7 @@ class RegistrasiController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role' => $request->role,
+                'status' => false,
             ]);
 
             // Create registrasi request (Status is 'Pending' by default in DB)
@@ -81,9 +82,12 @@ class RegistrasiController extends Controller
 
             DB::commit();
 
+            // Send Email Verification Notification (Dikomnetar sementara agar bisa lanjut)
+            // $user->sendEmailVerificationNotification();
+
             return response()->json([
                 'success' => true,
-                'message' => 'Pendaftaran berhasil dikirim. Akun Anda sedang dalam status Pending menunggu persetujuan Admin.',
+                'message' => 'Pendaftaran berhasil. Silakan tunggu persetujuan dari admin.',
             ]);
 
         } catch (\Exception $e) {

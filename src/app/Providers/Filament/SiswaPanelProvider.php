@@ -33,7 +33,6 @@ class SiswaPanelProvider extends PanelProvider
             ])
             ->login()
             ->passwordReset()
-            ->profile(EditProfile::class, isSimple: false)
             ->discoverResources(in: app_path('Filament/Siswa/Resources'), for: 'App\\Filament\\Siswa\\Resources')
             ->discoverPages(in: app_path('Filament/Siswa/Pages'), for: 'App\\Filament\\Siswa\\Pages')
             ->discoverWidgets(in: app_path('Filament/Siswa/Widgets'), for: 'App\\Filament\\Siswa\\Widgets')
