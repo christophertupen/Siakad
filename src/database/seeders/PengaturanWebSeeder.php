@@ -23,8 +23,8 @@ class PengaturanWebSeeder extends Seeder
         PengaturanWeb::updateOrCreate(
             ['id' => 1],
             [
-                'nama_sekolah' => 'SIAKAD SMK Unggul',
-                'nama_aplikasi' => 'SIAKAD Premium',
+                'nama_sekolah' => 'SchonaNexa SMK Unggul',
+                'nama_aplikasi' => 'ScholaNexa',
                 'npsn' => '10293847',
                 'jenjang' => 'SMK',
                 'status_sekolah' => 'Negeri',
@@ -34,22 +34,22 @@ class PengaturanWebSeeder extends Seeder
                 'logo' => null,
                 'favicon' => null,
                 'background_login' => null,
-                'email' => 'info@siakad.sch.id',
+                'email' => 'info@SchonaNexa.sch.id',
                 'telepon' => '(021) 1234-5678',
-                'website' => 'https://siakad.test',
+                'website' => 'https://SchonaNexa.test',
                 'alamat' => 'Jl. Pendidikan Raya No. 45, Jakarta, Indonesia',
                 'google_maps' => '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15865.71966530669!2d106.827153!3d-6.175392" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>',
-                'facebook' => 'https://facebook.com/siakad.sch',
-                'instagram' => 'https://instagram.com/siakad.sch',
-                'youtube' => 'https://youtube.com/c/siakad.sch',
-                'tiktok' => 'https://tiktok.com/@siakad.sch',
+                'facebook' => 'https://facebook.com/SchonaNexa.sch',
+                'instagram' => 'https://instagram.com/SchonaNexa.sch',
+                'youtube' => 'https://youtube.com/c/SchonaNexa.sch',
+                'tiktok' => 'https://tiktok.com/@SchonaNexa.sch',
                 'whatsapp' => 'https://wa.me/628123456789',
-                'copyright' => '© 2026 SIAKAD.test. Seluruh hak cipta dilindungi undang-undang.',
+                'copyright' => '© 2026 SchonaNexa.test. Seluruh hak cipta dilindungi undang-undang.',
                 'maintenance_mode' => false,
 
                 // Hero Section
                 'hero_headline' => 'Masa Depan Akademik Digital yang Terintegrasi',
-                'hero_subheadline' => 'SIAKAD 2.0 Premium',
+                'hero_subheadline' => 'ScholaNexa',
                 'hero_description' => 'Transformasi pengelolaan sekolah Anda dengan platform digital modern terpadu. Hubungkan administrasi, guru, siswa, dan orang tua dalam satu ekosistem yang pintar dan efisien.',
                 'hero_button1_text' => 'Mulai Sekarang',
                 'hero_button1_url' => '/login',
@@ -77,9 +77,9 @@ class PengaturanWebSeeder extends Seeder
                 'cta_background' => null,
 
                 // SEO
-                'seo_meta_title' => 'SIAKAD - Sistem Informasi Akademik Modern',
-                'seo_meta_description' => 'Sistem Informasi Akademik SIAKAD - Platform digitalisasi pendidikan terintegrasi untuk guru, siswa, dan orang tua.',
-                'seo_keywords' => 'siakad, sekolah, akademik, lms, spp online',
+                'seo_meta_title' => 'SchonaNexa - Sistem Informasi Akademik Modern',
+                'seo_meta_description' => 'Sistem Informasi Akademik SchonaNexa - Platform digitalisasi pendidikan terintegrasi untuk guru, siswa, dan orang tua.',
+                'seo_keywords' => 'SchonaNexa, sekolah, akademik, lms, spp online',
                 'seo_og_image' => null,
 
                 // Theme
@@ -154,7 +154,7 @@ class PengaturanWebSeeder extends Seeder
                 'kategori' => 'Event',
                 'tanggal' => '2026-07-14',
                 'author' => 'Admin',
-                'content' => 'Sekolah kami secara resmi membuka jalur pendaftaran siswa baru secara online menggunakan portal SIAKAD terintegrasi.',
+                'content' => 'Sekolah kami secara resmi membuka jalur pendaftaran siswa baru secara online menggunakan portal SchonaNexa terintegrasi.',
                 'status_publish' => true,
                 'featured' => true,
             ],
@@ -209,7 +209,7 @@ class PengaturanWebSeeder extends Seeder
             [
                 'nama' => 'Bpk. Hidayat Raharjo',
                 'role' => 'Orang Tua Budi (Kelas XI)',
-                'isi' => 'Sebagai wali murid, saya merasa sangat terbantu sejak sekolah menggunakan SIAKAD. Saya bisa memantau kehadiran harian Budi dan langsung membayar SPP via bank transfer dengan sangat praktis.',
+                'isi' => 'Sebagai wali murid, saya merasa sangat terbantu sejak sekolah menggunakan SchonaNexa. Saya bisa memantau kehadiran harian Budi dan langsung membayar SPP via bank transfer dengan sangat praktis.',
                 'rating' => 5,
             ],
             [
@@ -233,7 +233,7 @@ class PengaturanWebSeeder extends Seeder
         // 7. Seed Faqs
         $faqs = [
             [
-                'question' => 'Apakah SIAKAD mendukung pembayaran uang sekolah secara online?',
+                'question' => 'Apakah SchonaNexa mendukung pembayaran uang sekolah secara online?',
                 'answer' => 'Ya. Melalui integrasi dengan payment gateway Midtrans, wali murid dapat membayar biaya SPP bulanan atau uang pangkal lainnya menggunakan E-Wallet, transfer Virtual Account, atau kartu kredit dengan konfirmasi pembayaran real-time.',
                 'order' => 1,
             ],
@@ -244,7 +244,7 @@ class PengaturanWebSeeder extends Seeder
             ],
             [
                 'question' => 'Apakah sistem ini memiliki hak akses keamanan tersendiri?',
-                'answer' => 'Tentu saja. SIAKAD menggunakan otorisasi berbasis peran (Role-Based Access Control) yang didukung oleh Spatie Permission dan Filament Shield untuk memastikan data akademik penting hanya bisa diakses dan diedit oleh pihak yang memiliki izin sah.',
+                'answer' => 'Tentu saja. SchonaNexa menggunakan otorisasi berbasis peran (Role-Based Access Control) yang didukung oleh Spatie Permission dan Filament Shield untuk memastikan data akademik penting hanya bisa diakses dan diedit oleh pihak yang memiliki izin sah.',
                 'order' => 3,
             ],
         ];

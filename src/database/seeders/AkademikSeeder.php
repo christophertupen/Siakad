@@ -59,7 +59,7 @@ class AkademikSeeder extends Seeder
 
         // 4. Create user dummy akademik
         $user = User::firstOrCreate(
-            ['email' => 'akademik@siakad.test'],
+            ['email' => 'akademik@SchonaNexa.test'],
             [
                 'name' => 'Staff Akademik',
                 'password' => Hash::make('password'),

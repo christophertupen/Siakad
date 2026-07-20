@@ -16,11 +16,11 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Super Admin
+        // 1. admin
         $adminUser = User::firstOrCreate(
             ['email' => 'admin@admin.com'],
             [
-                'name' => 'Super Admin',
+                'name' => 'admin',
                 'password' => Hash::make('password'),
                 'role' => 'admin',
             ]

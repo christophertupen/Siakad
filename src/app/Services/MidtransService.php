@@ -32,7 +32,7 @@ class MidtransService
     public function generateOrderId(Pembayaran $pembayaran): string
     {
         return sprintf(
-            'SIAKAD-%s-%s-%s',
+            'SchonaNexa-%s-%s-%s',
             $pembayaran->getKey(),
             now()->format('YmdHis'),
             Str::upper(Str::random(6)),
@@ -122,7 +122,7 @@ class MidtransService
                     'id' => (string) $pembayaran->getKey(),
                     'price' => (int) round((float) $pembayaran->total),
                     'quantity' => 1,
-                    'name' => $itemName !== '' ? $itemName : 'Tagihan SIAKAD',
+                    'name' => $itemName !== '' ? $itemName : 'Tagihan SchonaNexa',
                 ],
             ],
             'customer_details' => [

@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ $settings->seo_meta_description ?? 'Sistem Informasi Akademik SIAKAD - Platform digitalisasi pendidikan terintegrasi untuk guru, siswa, dan orang tua.' }}">
-    <meta name="keywords" content="{{ $settings->seo_keywords ?? 'siakad, sekolah, portal akademik' }}">
+    <meta name="description" content="{{ $settings->seo_meta_description ?? 'Sistem Informasi Akademik ScholaNexa - Platform digitalisasi pendidikan terintegrasi untuk guru, siswa, dan orang tua.' }}">
+    <meta name="keywords" content="{{ $settings->seo_keywords ?? 'ScholaNexa, sekolah, portal akademik' }}">
     
-    <title>{{ $settings->seo_meta_title ?? 'SIAKAD - Sistem Informasi Akademik Modern' }}</title>
+    <title>{{ $settings->seo_meta_title ?? 'ScholaNexa - Sistem Informasi Akademik Modern' }}</title>
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="{{ $settings->seo_meta_title ?? 'SIAKAD - Sistem Informasi Akademik Modern' }}">
-    <meta property="og:description" content="{{ $settings->seo_meta_description ?? 'Sistem Informasi Akademik SIAKAD' }}">
+    <meta property="og:title" content="{{ $settings->seo_meta_title ?? 'ScholaNexa - Sistem Informasi Akademik Modern' }}">
+    <meta property="og:description" content="{{ $settings->seo_meta_description ?? 'Sistem Informasi Akademik ScholaNexa' }}">
     @if($settings->seo_og_image)
         <meta property="og:image" content="{{ asset('storage/' . $settings->seo_og_image) }}">
     @endif
@@ -115,7 +115,7 @@
     </style>
 </head>
 
-<body x-data="{ mobileMenuOpen: false, modalOpen: false, step: 1, role: '' }" :class="modalOpen ? 'overflow-hidden' : ''" @close-modal.window="modalOpen = false; step = 1; role = '';">
+<body x-data="{ mobileMenuOpen: false, modalOpen: {{ $errors->any() ? 'true' : 'false' }}, step: {{ $errors->any() ? '2' : '1' }}, role: '{{ old('role', '') }}', mode: 'login' }" :class="modalOpen ? 'overflow-hidden' : ''" @close-modal.window="modalOpen = false; step = 1; role = ''; mode = 'login';">
 
     <!-- Ambient Mesh Gradients -->
     <div class="absolute top-0 left-0 w-full overflow-hidden h-[900px] z-0 pointer-events-none">
@@ -137,7 +137,7 @@
                             </div>
                         @endif
                         <span class="text-xl font-extrabold tracking-tight text-secondary">
-                            {{ $settings->nama_aplikasi ?? 'SIAKAD' }}
+                            {{ $settings->nama_aplikasi ?? 'SchoaNexa' }}
                         </span>
                     </a>
                 </div>
@@ -154,8 +154,8 @@
                 </div>
 
                 <div class="hidden md:flex items-center space-x-4">
-                    <button @click="modalOpen = true; step = 1; role = '';" class="px-6 py-2.5 rounded-premium bg-primary text-white text-sm font-bold shadow-md hover:bg-blue-600 hover:-translate-y-0.5 transition-all">
-                        Daftar Sekarang
+                    <button @click="modalOpen = true; step = 1; role = ''; mode = 'login';" class="px-6 py-2.5 rounded-premium bg-primary text-white text-sm font-bold shadow-md hover:bg-blue-600 hover:-translate-y-0.5 transition-all">
+                        Login Akun
                     </button>
                 </div>
 
@@ -178,8 +178,8 @@
                 <a href="#news" @click="mobileMenuOpen = false" class="block text-base font-semibold text-slate-600 py-2 border-b border-slate-100">Berita</a>
                 <a href="#gallery" @click="mobileMenuOpen = false" class="block text-base font-semibold text-slate-600 py-2 border-b border-slate-100">Galeri</a>
                 <a href="#faq" @click="mobileMenuOpen = false" class="block text-base font-semibold text-slate-600 py-2 border-b border-slate-100">FAQ</a>
-                <button @click="mobileMenuOpen = false; modalOpen = true; step = 1; role = '';" class="block w-full text-center px-6 py-3 rounded-premium bg-primary text-white font-bold">
-                    Daftar Sekarang
+                <button @click="mobileMenuOpen = false; modalOpen = true; step = 1; role = ''; mode = 'login';" class="block w-full text-center px-6 py-3 rounded-premium bg-primary text-white font-bold">
+                    Login Akun
                 </button>
             </div>
         </div>
@@ -195,7 +195,7 @@
             <div class="max-w-3xl space-y-8">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
                     <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                    <span class="text-xs font-bold text-white tracking-wide uppercase">{{ $settings->hero_subheadline ?? 'SIAKAD 2.0 Premium' }}</span>
+                    <span class="text-xs font-bold text-white tracking-wide uppercase">{{ $settings->hero_subheadline ?? 'SchholaNexa' }}</span>
                 </div>
                 
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] sm:leading-[1.1]">
@@ -207,8 +207,8 @@
                 </p>
 
                 <div class="flex flex-wrap justify-center sm:justify-start gap-4">
-                    <button @click="modalOpen = true; step = 1; role = '';" class="px-8 py-3.5 rounded-premium bg-primary text-white font-bold hover:bg-blue-700 transition-all shadow-lg shadow-primary/20">
-                        Daftar Sekarang <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                    <button @click="modalOpen = true; step = 1; role = ''; mode = 'login';" class="px-8 py-3.5 rounded-premium bg-primary text-white font-bold hover:bg-blue-700 transition-all shadow-lg shadow-primary/20">
+                        Login Akun <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
                     </button>
                     @if($settings->hero_button2_text)
                         <a href="{{ $settings->hero_button2_url ?? '#school-profile' }}" class="px-8 py-3.5 rounded-premium bg-white/10 text-white font-bold border border-white/20 hover:bg-white/20 transition-all backdrop-blur-sm shadow-sm">
@@ -267,7 +267,7 @@
     <section id="why-choose-us" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div class="text-center space-y-4 mb-16">
             <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20">
-                <span class="text-xs font-bold text-accent tracking-wide uppercase">Mengapa SIAKAD?</span>
+                <span class="text-xs font-bold text-accent tracking-wide uppercase">Mengapa ScholaNexa?</span>
             </div>
             <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-secondary">
                 Solusi Manajemen Pendidikan Unggulan
@@ -530,7 +530,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" x-data="{ activeSlide: 0, totalSlides: {{ $testimonials->count() }} }">
             <div class="text-center space-y-4 mb-16 font-sans">
                 <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary uppercase tracking-wide">Testimoni</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white font-sans">Apa Kata Mereka tentang SIAKAD?</h2>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white font-sans">Apa Kata Mereka tentang ScholaNexa?</h2>
             </div>
 
             @if($testimonials->count() > 0)
@@ -610,7 +610,7 @@
                 </p>
                 <div class="flex flex-wrap justify-center gap-4 pt-4">
                     @if($settings->cta_button_text)
-                        <button @click="modalOpen = true; step = 1; role = '';" class="px-8 py-3.5 rounded-premium bg-primary text-white font-bold hover:bg-blue-600 transition-all shadow-lg shadow-primary/20">
+                        <button @click="modalOpen = true; step = 1; role = ''; mode = 'login';" class="px-8 py-3.5 rounded-premium bg-primary text-white font-bold hover:bg-blue-600 transition-all shadow-lg shadow-primary/20">
                             {{ $settings->cta_button_text }}
                         </button>
                     @endif
@@ -637,7 +637,7 @@
                                 {{ substr($settings->nama_sekolah ?? 'S', 0, 1) }}
                             </div>
                         @endif
-                        <span class="text-base font-extrabold text-secondary">{{ $settings->nama_aplikasi ?? 'SIAKAD' }}</span>
+                        <span class="text-base font-extrabold text-secondary">{{ $settings->nama_aplikasi ?? 'ScholaNexa' }}</span>
                     </div>
                     <p class="text-xs text-slate-400 leading-relaxed">
                         {{ $settings->alamat ?? 'Jl. Pendidikan Raya No. 45, Jakarta, Indonesia' }}
@@ -663,12 +663,12 @@
                 <!-- Links Column -->
                 <div class="space-y-3">
                     <h4 class="font-bold text-secondary text-xs uppercase tracking-wider">Portal</h4>
-                    <button @click="modalOpen = true; step = 1; role = '';" class="text-xs font-bold text-primary hover:underline">Daftar Sekarang</button>
+                    <button @click="modalOpen = true; step = 1; role = ''; mode = 'login';" class="text-xs font-bold text-primary hover:underline">Login Akun</button>
                 </div>
             </div>
 
             <div class="border-t border-slate-100 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-sans">
-                <p>{{ $settings->copyright ?? '© 2026 SIAKAD.test. Seluruh hak cipta dilindungi undang-undang.' }}</p>
+                <p>{{ $settings->copyright ?? '© 2026 ScholaNexa.test. Seluruh hak cipta dilindungi undang-undang.' }}</p>
                 <p>Dikembangkan dengan <i class="fa-solid fa-heart text-red-500"></i> untuk Pendidikan Indonesia</p>
             </div>
         </div>
@@ -685,7 +685,7 @@
          x-transition:opacity.duration.300ms>
          
         <!-- Backdrop overlay -->
-        <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" @click="modalOpen = false; step = 1; role = '';"></div>
+        <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" @click="modalOpen = false; step = 1; role = ''; mode = 'login';"></div>
 
         <!-- Modal Box -->
         <div class="flex items-center justify-center min-h-screen p-4">
@@ -699,15 +699,15 @@
                  class="relative w-full max-w-lg bg-white rounded-[24px] shadow-2xl p-6 sm:p-8 border border-slate-100 z-10 space-y-6">
                  
                 <!-- Close Button -->
-                <button @click="modalOpen = false; step = 1; role = '';" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-2">
+                <button @click="modalOpen = false; step = 1; role = ''; mode = 'login';" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-2">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
 
                 <!-- STEP 1: PILIH ROLE -->
                 <div x-show="step === 1" class="space-y-6">
                     <div class="text-center space-y-2">
-                        <h3 class="text-2xl font-black text-secondary tracking-tight">Buat Akun Baru</h3>
-                        <p class="text-sm text-slate-500 font-sans">Silakan pilih jenis akun yang ingin Anda daftarkan.</p>
+                        <h3 class="text-2xl font-black text-secondary tracking-tight" x-text="mode === 'login' ? 'Login Akun' : 'Buat Akun Baru'"></h3>
+                        <p class="text-sm text-slate-500 font-sans" x-text="mode === 'login' ? 'Silakan pilih role untuk login.' : 'Silakan pilih jenis akun yang ingin Anda daftarkan.'"></p>
                     </div>
 
                     <div class="space-y-4">
@@ -744,22 +744,63 @@
                             <i class="fa-solid fa-chevron-right text-slate-300 group-hover:text-primary transition-colors"></i>
                         </div>
                     </div>
+
+                    <div class="text-center pt-2">
+                        <template x-if="mode === 'login'">
+                            <p class="text-sm text-slate-500">Belum punya akun? <button @click="mode = 'register'" class="text-primary font-bold hover:underline">Daftar Akun</button></p>
+                        </template>
+                        <template x-if="mode === 'register'">
+                            <p class="text-sm text-slate-500">Sudah punya akun? <button @click="mode = 'login'" class="text-primary font-bold hover:underline">Login Akun</button></p>
+                        </template>
+                    </div>
                 </div>
 
 
-                <!-- STEP 2: FORM REGISTRASI -->
+                <!-- STEP 2: FORM (LOGIN / REGISTRASI) -->
                 <div x-show="step === 2" class="space-y-6" style="display: none;">
                     <div class="flex items-center gap-4">
                         <button type="button" @click="step = 1; role = '';" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-primary/10 hover:text-primary transition-colors">
                             <i class="fa-solid fa-arrow-left"></i>
                         </button>
                         <div>
-                            <h3 class="text-xl font-black text-secondary tracking-tight">Form Registrasi</h3>
-                            <p class="text-xs text-slate-500 font-sans" x-text="'Mendaftar sebagai ' + (role.replace('_', ' ').toUpperCase())"></p>
+                            <h3 class="text-xl font-black text-secondary tracking-tight" x-text="mode === 'login' ? 'Form Login' : 'Form Registrasi'"></h3>
+                            <p class="text-xs text-slate-500 font-sans" x-text="(mode === 'login' ? 'Login sebagai ' : 'Mendaftar sebagai ') + (role.replace('_', ' ').toUpperCase())"></p>
                         </div>
                     </div>
 
-                    <form id="registrasi-form" class="space-y-4" @submit.prevent="submitRegistrasi($event)">
+                    <!-- LOGIN FORM -->
+                    <form x-show="mode === 'login'" action="{{ route('login') }}" method="POST" class="space-y-4">
+                        @csrf
+                        <input type="hidden" name="role" :value="role">
+                        
+                        <!-- Email -->
+                        <div class="space-y-1">
+                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wide">Email / Gmail</label>
+                            <input type="email" name="email" value="{{ old('email') }}" required class="w-full px-4 py-2.5 rounded-premium border border-slate-200 focus:outline-none focus:border-primary text-sm transition-all" placeholder="Masukkan email Anda">
+                            @error('email')
+                                <span class="text-xs text-red-500 font-medium">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <!-- Password -->
+                        <div class="space-y-1">
+                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wide">Password</label>
+                            <input type="password" name="password" required class="w-full px-4 py-2.5 rounded-premium border border-slate-200 focus:outline-none focus:border-primary text-sm transition-all" placeholder="Masukkan password">
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" class="w-full py-3 rounded-premium bg-primary text-white font-bold hover:bg-blue-700 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                                <span>Login</span>
+                            </button>
+                        </div>
+
+                        <div class="text-center pt-2">
+                            <p class="text-sm text-slate-500">Belum punya akun? <button type="button" @click="mode = 'register'; step = 1; role = '';" class="text-primary font-bold hover:underline">Daftar Akun</button></p>
+                        </div>
+                    </form>
+
+                    <!-- REGISTER FORM -->
+                    <form x-show="mode === 'register'" id="registrasi-form" class="space-y-4" @submit.prevent="submitRegistrasi($event)">
                         @csrf
                         <input type="hidden" name="role" :value="role">
                         
@@ -823,6 +864,10 @@
                                 <span>Ajukan Pendaftaran</span>
                                 <i id="reg-spinner" class="fa-solid fa-spinner animate-spin hidden"></i>
                             </button>
+                        </div>
+
+                        <div class="text-center pt-2">
+                            <p class="text-sm text-slate-500">Sudah punya akun? <button type="button" @click="mode = 'login'; step = 1; role = '';" class="text-primary font-bold hover:underline">Login Akun</button></p>
                         </div>
                     </form>
                 </div>

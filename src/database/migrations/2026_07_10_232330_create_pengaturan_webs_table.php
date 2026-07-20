@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->string('nama_sekolah');
 
-            $table->string('nama_aplikasi')->default('SIAKAD SMK');
+            $table->string('nama_aplikasi')->default('SchonaNexa SMK');
 
             $table->string('npsn')->nullable();
 
@@ -117,7 +117,7 @@ return new class extends Migration
             */
 
             $table->string('copyright')
-                ->default('© SIAKAD SMK');
+                ->default('© SchonaNexa SMK');
 
             $table->boolean('maintenance_mode')
                 ->default(false);

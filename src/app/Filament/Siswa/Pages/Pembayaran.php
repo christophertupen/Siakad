@@ -27,6 +27,23 @@ class Pembayaran extends Page
                 ->orderBy('created_at', 'desc')
                 ->get();
 
+            $midtransService = app(\App\Services\MidtransService::class);
+            $hasUpdates = false;
+
+            foreach ($pembayarans->where('status', 'Pending')->whereNotNull('midtrans_order_id') as $p) {
+                $oldStatus = $p->status;
+                $newStatus = $midtransService->checkStatus($p);
+                if ($oldStatus !== $newStatus) {
+                    $hasUpdates = true;
+                }
+            }
+
+            if ($hasUpdates) {
+                $pembayarans = PembayaranModel::where('siswa_id', $siswa->id)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+            }
+
             $totalTagihan = $pembayarans->where('status', 'Pending')->sum('total');
             $totalTerbayar = $pembayarans->where('status', 'Lunas')->sum('total');
         }

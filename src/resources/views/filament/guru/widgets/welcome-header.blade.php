@@ -6,7 +6,7 @@
                     {{ $greeting }}, {{ $userName }} 👋
                 </h2>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                    Guru • SIAKAD SMK
+                    Guru • SchonaNexa SMK
                 </p>
             </div>
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 px-4 py-2 rounded-xl border border-gray-150 dark:border-gray-800">

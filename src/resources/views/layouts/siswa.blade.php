@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>SIAKAD - Student Learning Portal</title>
+    <title>SchonaNexa - Student Learning Portal</title>
     
     <!-- AlpineJS for UI States -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -167,7 +167,7 @@
         <div class="mb-8 flex items-center gap-3 px-3">
             <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">school</span>
             <div class="flex flex-col">
-                <span class="text-xl font-bold text-primary dark:text-primary-fixed">SIAKAD</span>
+                <span class="text-xl font-bold text-primary dark:text-primary-fixed">SchonaNexa</span>
                 <span class="text-xs text-on-surface-variant/70">Education System</span>
             </div>
         </div>
@@ -288,6 +288,20 @@
 
     <!-- Main Content Canvas -->
     <main class="ml-[280px] pt-32 px-8 pb-12 min-h-screen relative overflow-hidden">
+        @if (session('success'))
+            <div class="mb-4 rounded-xl bg-success/10 border border-success/20 p-4 text-success flex items-center gap-3 relative z-50">
+                <span class="material-symbols-outlined">check_circle</span>
+                <p class="font-bold text-sm">{{ session('success') }}</p>
+            </div>
+        @endif
+        
+        @if (session('error'))
+            <div class="mb-4 rounded-xl bg-error/10 border border-error/20 p-4 text-error flex items-center gap-3 relative z-50">
+                <span class="material-symbols-outlined">error</span>
+                <p class="font-bold text-sm">{{ session('error') }}</p>
+            </div>
+        @endif
+
         {{ $slot }}
     </main>
 

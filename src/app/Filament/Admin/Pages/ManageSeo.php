@@ -47,7 +47,7 @@ class ManageSeo extends Page implements HasForms
                             ->rows(3),
                         TextInput::make('seo_keywords')
                             ->label('Keywords')
-                            ->placeholder('Kata kunci dipisah koma (contoh: siakad, sekolah, smk)'),
+                            ->placeholder('Kata kunci dipisah koma (contoh: SchonaNexa, sekolah, smk)'),
                         FileUpload::make('seo_og_image')
                             ->label('OG Image (Open Graph)')
                             ->image()

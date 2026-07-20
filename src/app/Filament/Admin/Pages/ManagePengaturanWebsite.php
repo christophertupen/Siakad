@@ -46,7 +46,7 @@ class ManagePengaturanWebsite extends Page implements HasForms
                             ->required(),
                         TextInput::make('nama_aplikasi')
                             ->label('Nama Aplikasi')
-                            ->default('SIAKAD SMK')
+                            ->default('SchonaNexa SMK')
                             ->required(),
                         Grid::make(3)->schema([
                             TextInput::make('npsn')->label('NPSN'),

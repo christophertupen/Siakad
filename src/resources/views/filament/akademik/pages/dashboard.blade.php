@@ -11,7 +11,7 @@
 <div class="w-10 h-10 teal-gradient rounded-xl flex items-center justify-center shadow-lg">
 <span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">school</span>
 </div>
-<h1 class="font-headline-lg text-headline-lg text-staff-teal font-black">SIAKAD</h1>
+<h1 class="font-headline-lg text-headline-lg text-staff-teal font-black">SchonaNexa</h1>
 </div>
 <nav class="flex-1 space-y-2 overflow-y-auto custom-scrollbar pr-2">
 <!-- Dashboard Active -->

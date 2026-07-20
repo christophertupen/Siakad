@@ -7,7 +7,7 @@
 <!-- SideNavBar -->
 <aside class="fixed left-0 top-0 h-full z-40 hidden md:flex flex-col rounded-xl m-4 h-[calc(100vh-32px)] w-72 bg-glass-fill dark:bg-inverse-surface/80 backdrop-blur-xl border border-glass-stroke shadow-xl">
 <div class="p-8">
-<h1 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed-dim font-black">SIAKAD Staff</h1>
+<h1 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed-dim font-black">SchonaNexa Staff</h1>
 <p class="text-on-surface-variant font-label-md">Academic Portal</p>
 </div>
 <nav class="flex-1 px-4 space-y-2">
@@ -37,7 +37,7 @@
 <img class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBooDCKezR6kPGmvPgja5ae9SKYUVG1la6P2JT8GH5Y07aqBmXKiyEUY1rAhc0N8vh0q4HdylgHCZH6hPBk3h6_AwZ4adjnTFxBRUk0g8FHw0teBhtFnX1iXFYNQ_eHzFZ8tQLGmbGOMoHjT2dE63M5E4dOSBH-I8ejuGzl5g-Mgz5Fg0nGJZHcYnhHUm1e3wACmPeeGczINtt8B2VUOgYqhMklc1AdUYTXM2BmuzF_LPfs3xbjy3B_"/>
 <div>
 <p class="font-label-md text-on-surface font-bold">{{ auth()->user()->name }}</p>
-<p class="text-[12px] text-on-surface-variant">Super Administrator</p>
+<p class="text-[12px] text-on-surface-variant">administrator</p>
 </div>
 </div>
 <button onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="mt-4 w-full flex items-center gap-2 px-4 py-2 text-error font-label-md hover:bg-error/5 rounded-lg transition-colors">
@@ -126,7 +126,7 @@
 <h4 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">{{ $ann->title }}</h4>
 <p class="text-body-md text-on-surface-variant line-clamp-3">{{ strip_tags($ann->content) }}</p>
 <div class="flex items-center gap-4 pt-2">
-<p class="text-label-sm text-outline">Dibuat oleh {{ $ann->author ?? 'Super Admin' }}</p>
+<p class="text-label-sm text-outline">Dibuat oleh {{ $ann->author ?? 'admin' }}</p>
 </div>
 </div>
 <div class="flex flex-col justify-between items-end gap-2">

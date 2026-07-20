@@ -50,8 +50,11 @@ Route::get('/', function () {
 
 Route::get('/midtrans/pay/{pembayaran}', [MidtransController::class, 'pay'])->name('midtrans.pay');
 
-Route::redirect('/login', '/admin/login')->name('login');
+Route::get('/login', function () {
+    return redirect('/admin/login');
+})->name('login');
 
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login.post');
 Route::post('/ppdb/daftar', [PPDBController::class, 'store'])->name('ppdb.store');
 
 Route::post('/registrasi/akun', [RegistrasiController::class, 'register'])->name('registrasi.store');

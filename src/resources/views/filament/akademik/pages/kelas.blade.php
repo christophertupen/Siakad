@@ -11,7 +11,7 @@
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
 </div>
 <div>
-<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim font-black leading-tight">SIAKAD Staff</h1>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim font-black leading-tight">SchonaNexa Staff</h1>
 <p class="text-xs text-on-surface-variant font-medium opacity-70">Academic Portal</p>
 </div>
 </div>

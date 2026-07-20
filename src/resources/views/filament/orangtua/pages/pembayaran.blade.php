@@ -77,7 +77,7 @@
                             </td>
                             <td class="py-4 px-4 text-center">
                                 @if($p->status === 'Pending')
-                                    <a href="{{ route('midtrans.pay', $p->id) }}" class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary hover:bg-blue-600 text-white rounded-xl text-xs font-bold shadow-md shadow-primary/10 transition-all">
+                                    <a href="{{ route('midtrans.pay', $p->id) }}" target="_blank" data-navigate-ignore="true" class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary hover:bg-blue-600 text-white rounded-xl text-xs font-bold shadow-md shadow-primary/10 transition-all">
                                         <span class="material-symbols-outlined text-sm">payment</span>
                                         Bayar Sekarang
                                     </a>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>SIAKAD - Parent Portal</title>
+    <title>SchonaNexa - Parent Portal</title>
     
     <!-- AlpineJS for UI States -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -161,7 +161,7 @@
             <div class="flex items-center gap-8">
                 <span class="text-xl font-extrabold text-primary flex items-center gap-2">
                     <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
-                    SIAKAD
+                    SchonaNexa
                 </span>
                 
                 <!-- Links (Top Navigation) -->
@@ -221,6 +221,20 @@
 
     <!-- Main Content Canvas -->
     <main class="pt-32 px-4 md:px-8 max-w-container-max mx-auto space-y-8 min-h-screen">
+        @if (session('success'))
+            <div class="mb-4 rounded-xl bg-success/10 border border-success/20 p-4 text-success flex items-center gap-3">
+                <span class="material-symbols-outlined">check_circle</span>
+                <p class="font-bold text-sm">{{ session('success') }}</p>
+            </div>
+        @endif
+        
+        @if (session('error'))
+            <div class="mb-4 rounded-xl bg-error/10 border border-error/20 p-4 text-error flex items-center gap-3">
+                <span class="material-symbols-outlined">error</span>
+                <p class="font-bold text-sm">{{ session('error') }}</p>
+            </div>
+        @endif
+
         {{ $slot }}
     </main>
 

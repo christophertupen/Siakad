@@ -1,7 +1,7 @@
 <x-filament-widgets::widget>
     <x-filament::section
         heading="Quick Action"
-        description="Akses cepat untuk menambahkan data utama SIAKAD."
+        description="Akses cepat untuk menambahkan data utama SchonaNexa."
         icon="heroicon-m-bolt"
         icon-color="primary"
     >

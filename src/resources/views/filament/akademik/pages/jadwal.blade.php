@@ -8,7 +8,7 @@
 <aside class="fixed left-0 top-0 h-full z-40 hidden md:flex flex-col rounded-xl m-4 h-[calc(100vh-32px)] w-72 bg-glass-fill backdrop-blur-xl border border-glass-stroke shadow-xl">
 <div class="p-8 flex flex-col items-center">
 <div class="mb-8 w-full">
-<h1 class="font-headline-lg text-headline-lg text-primary font-black tracking-tighter">SIAKAD Staff</h1>
+<h1 class="font-headline-lg text-headline-lg text-primary font-black tracking-tighter">SchonaNexa Staff</h1>
 <p class="text-on-surface-variant font-label-md text-label-md opacity-70">Academic Portal</p>
 </div>
 <nav class="w-full flex flex-col gap-2">

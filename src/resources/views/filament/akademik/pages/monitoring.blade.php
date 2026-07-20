@@ -7,7 +7,7 @@
 <!-- Sidebar Shell -->
 <aside class="fixed left-0 top-0 h-full z-40 hidden md:flex flex-col bg-glass-fill dark:bg-inverse-surface/80 rounded-xl m-4 h-[calc(100vh-32px)] w-72 backdrop-blur-xl border border-glass-stroke shadow-xl">
 <div class="p-8">
-<h1 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed-dim font-black">SIAKAD Staff</h1>
+<h1 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed-dim font-black">SchonaNexa Staff</h1>
 <p class="font-label-md text-label-md text-on-surface-variant opacity-70">Academic Portal</p>
 </div>
 <nav class="flex-1 px-4 space-y-2 overflow-y-auto custom-scrollbar">

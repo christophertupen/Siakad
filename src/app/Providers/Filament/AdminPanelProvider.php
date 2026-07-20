@@ -49,7 +49,7 @@ class AdminPanelProvider extends PanelProvider
 
             ->spa()
 
-            ->brandName('SIAKAD SMK')
+            ->brandName('SchonaNexa SMK')
 
             ->brandLogo(asset('images/logo.png'))
 
